@@ -2,12 +2,15 @@ package com.teamportalis.project_broker;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.teamportalis.project_broker.views.LoginView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.Constants;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
@@ -28,47 +31,16 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("projectbrokertheme")
 @Widgetset("com.teamportalis.project_broker.ProjectBrokerWidgetset")
 public class EntryUI extends UI {
-	private Layout layout = new VerticalLayout();
-	private Button btnLogin = new Button("Login");
-	private TextField txtUsername = new TextField("Username");
-	private PasswordField pwdField = new PasswordField("Password");
-	private Label lbErrorMessage = new Label();
-	
-    @Override
+
+	private Navigator mainNavigator;
+	private LoginView v;
+
+	@Override
     protected void init(VaadinRequest vaadinRequest) {
-    	txtUsername.setRequired(true);
-    	pwdField.setRequired(true);
-    	txtUsername.setRequiredError("Please enter a username!");
-    	pwdField.setRequiredError("Please enter a password!");
-    	lbErrorMessage.setContentMode(ContentMode.HTML);
-    	lbErrorMessage.setVisible(false);
-    	btnLogin.addClickListener(e ->
-    	{
-    		if(txtUsername.getValue().length() > 0 && pwdField.getValue().length() > 0)
-    		{
-    			lbErrorMessage.setValue("<p style='color:blue;'>Logged in as: "+txtUsername.getValue()+"</p>");
-    			lbErrorMessage.setVisible(true);
-    		}
-    		else
-    		{
-    			lbErrorMessage.setValue("<p style='color:red;'>Please enter a username and password!</p>");
-    			lbErrorMessage.setVisible(true);
-    		}
-    	});
-    	
-    	final Panel loginPanel = new Panel("Login ...");
-    	layout.addComponent(loginPanel);
-    	
-    	final FormLayout loginForm = new FormLayout();
-    	loginForm.setMargin(true);
-    	loginForm.setStyleName("loginForm");
-    	loginForm.addComponent(txtUsername);
-    	loginForm.addComponent(pwdField);
-    	loginForm.addComponent(btnLogin);
-    	loginForm.addComponent(lbErrorMessage);
-    	
-    	loginPanel.setContent(loginForm);
-    	setContent(layout);
+		v = new LoginView();
+		mainNavigator = new Navigator(this, this);
+		mainNavigator.addView("", v);
+		mainNavigator.navigateTo("");
     }
 
     @WebServlet(urlPatterns = "/*", name = "EntryUIServlet", asyncSupported = true)
