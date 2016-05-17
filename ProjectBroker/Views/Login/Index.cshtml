@@ -3,5 +3,49 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Index</h2>
+<div class="grid" style="width:25%; margin:auto; margin-top:50px;">
+    <div class="row cells2">
+        <div class="cell">
+            <h2 style="color: #cacaca;">Login</h2>
+            <small>Please login to access the website!</small>
+        </div>
+    </div>
+    <div class="row cells2">
+        <div class="cell">
+            <div class="input-control modern text iconic">
+                <input type="text" placeholder="Input login" style="color: #cacaca;">
+                <span class="label" style="color: #cacaca;">Username</span>
+                <span class="informer" style="color: #cacaca;">Please enter your username</span>
+                <span class="icon mif-user"></span>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="input-control modern password iconic" data-role="input">
+                <input type="password" placeholder="Input password" style="color: #cacaca;">
+                <span class="label" style="color: #cacaca;">Password</span>
+                <span class="informer" style="color: #cacaca;">Please enter your password</span>
+                <span class="icon mif-lock"></span>
+                <button class="button helper-button reveal" style="background-color: #cacaca;"><span class="mif-looks"></span></button>
+            </div>
+        </div> 
+    </div>
+    <div class="row cells2" style="margin-left: 30px; margin-top:50px;">
+        <div class="cell" style="margin-top:10px;">
+            <span style="color: #cacaca;">Remember me &nbsp;</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="check"></span>
+            </label>
+        </div>
+        <div class="cell">
+            <button class="button" style="background-color:#cacaca; width: 85%;">Login <span class="mif-unlock"></span></button>
+        </div>
+    </div>
+</div>
 
+@if (!(Session["UName"] == null))
+{
+    <script>
+        window.location.href = '@Url.Action("Index","Main")';
+    </script>
+}
