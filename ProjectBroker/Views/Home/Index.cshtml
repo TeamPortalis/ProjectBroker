@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<div id="niceCharm2" class="charm left-side" data-role="charm" data-position="left">
+    <h1>Welcome</h1>
+    <p>Fuck off</p>
+</div>
+<button onclick="showCharm();"></button>
+
+
+@section scripts {
+    <script>
+        function showCharm() {
+            var charm = $("#niceCharm").data("charm");
+            if (charm.element.data("opened") === true) {
+                charm.close();
+            } else {
+                charm.open();
+            }
+        }
+    </script>
+}
+
+
+@section TopCharm {
+    <h1>Welcome home</h1>
+    <p>Who are you</p>    
+}
