@@ -9,10 +9,28 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    @if(!ViewBag.Title.Contains("Login"))
+    @if(IsSectionDefined("TopCharm"))
     {
-        <div id="niceCharm" data-role="charm" data-position="top" class="charm top-side">
+        <div id="topCharm" data-role="charm" data-position="top" class="charm top-side">
             @RenderSection("TopCharm", false)
+        </div>
+    }
+    @if (IsSectionDefined("LeftCharm"))
+    {
+        <div id="leftCharm" data-role="charm" data-position="left" class="charm left-side">
+            @RenderSection("LeftCharm", false)
+        </div>
+    }
+    @if (IsSectionDefined("RightCharm"))
+    {
+        <div id="rightCharm" data-role="charm" data-position="right" class="charm right-side">
+            @RenderSection("RightCharm", false)
+        </div>
+    }
+    @if (IsSectionDefined("BottomCharm"))
+    {
+        <div id="bottomCharm" data-role="charm" data-position="bottom" class="charm bottom-side">
+            @RenderSection("BottomCharm", false)
         </div>
     }
     @RenderBody()
