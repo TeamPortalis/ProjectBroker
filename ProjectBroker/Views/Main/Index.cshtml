@@ -16,29 +16,65 @@ Tile Template
     ViewBag.Title = "Home";
 }
 
-<div class="panel" style="width: 25%; height: 100%; background-color: #343434; float:left; border-right: inset black;">
-    <div class="heading">
+<div class="panel" style="width: 25%; height: 88%; background-color: #343434; float:left;">
+    <div class="heading" style="border-right: inset #007aa8;">
         <span class="mif-user"></span>
         <span class="title">User</span>
     </div>
-    <div class="content">
-
+    <div class="content" style="height:100%; border-right: inset #9e9e9e;">
+        <div id="user-upper" style="width:100%; height:25%;">
+            <!--Insert user image-->
+            <img src="nolink" style="width:50%; height:100%; margin-left:25%;" id="usr_pb"/>
+        </div>
+        <div id="user-lower" style="width:100%; height:50%; vertical-align:bottom;">
+            <p>User: <span style="color: #00a1dd;">User@*@Session["UName"].ToString()*@</span></p>
+            <p>E-Mail: <span style="color: #00a1dd;">some@email.thing@*@Session["EMail"].ToString()*@</span></p>
+        </div>
     </div>
 </div>
-<div class="panel" style="width: 75%; height: 50%; background-color: #343434; float:left;">
-    <div class="heading">
+<div class="panel" style="width: 75%; height: 52%; background-color: #343434; float:left;">
+    <div class="heading" style="border-left: inset #00658b;">
         <span class="title">Current Projects</span>
     </div>
-    <div class="content">
-
+    <div class="content" style="border-left: inset #121212; height:100%;">
+        <div class="tile">
+            <div class="tile-content slide-up">
+                <div class="slide">
+                    <span class="mif-home"></span>
+                </div>
+                <div class="slide-over op-crimson text-small padding10">
+                    A home-project for two.
+                </div>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile-content slide-up">
+                <div class="slide">
+                    <span class="mif-home"></span>
+                </div>
+                <div class="slide-over op-crimson text-small padding10">
+                    Another home-project.
+                </div>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile-content slide-up">
+                <div class="slide">
+                    <span class="mif-home"></span>
+                </div>
+                <div class="slide-over op-crimson text-small padding10">
+                    Yet another one ...
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="panel" style="width: 75%; height: 50%; background-color: #343434; float:left;">
+<div class="panel" style="width: 75%; height: 40%; background-color: #343434; float:left;">
     <div class="heading">
         <span class="title">Recommended Projects</span>
     </div>
-    <div class="content">
+    <div class="content" style="border-left: inset #121212;">
 
     </div>
 </div>

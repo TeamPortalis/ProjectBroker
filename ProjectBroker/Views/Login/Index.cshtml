@@ -13,7 +13,7 @@
     <div class="row cells2">
         <div class="cell">
             <div class="input-control modern text iconic">
-                <input type="text" placeholder="Input login" style="color: #cacaca;">
+                <input type="text" placeholder="Input login" style="color: #cacaca;" id="user_field">
                 <span class="label" style="color: #cacaca;">Username</span>
                 <span class="informer" style="color: #cacaca;">Please enter your username</span>
                 <span class="icon mif-user"></span>
@@ -21,7 +21,7 @@
         </div>
         <div class="cell">
             <div class="input-control modern password iconic" data-role="input">
-                <input type="password" placeholder="Input password" style="color: #cacaca;">
+                <input type="password" placeholder="Input password" style="color: #cacaca;" id="password_field">
                 <span class="label" style="color: #cacaca;">Password</span>
                 <span class="informer" style="color: #cacaca;">Please enter your password</span>
                 <span class="icon mif-lock"></span>
@@ -33,7 +33,7 @@
         <div class="cell" style="margin-top:10px;">
             <span style="color: #cacaca;">Remember me &nbsp;</span>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="remember_me">
                 <span class="check"></span>
             </label>
         </div>
@@ -42,6 +42,8 @@
         </div>
     </div>
 </div>
+
+
 
 @if (!(Session["UName"] == null))
 {
