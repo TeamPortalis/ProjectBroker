@@ -1,3 +1,8 @@
+$lightgrey: #9e9e9e;
+$midgrey: #626262;
+$darkgrey: #343434;
+$lightblue: #00a1dd;
+$darkblue: #00658b;
 // If you edit this file you need to compile the theme. See README.md for details.
 
 // Global variable overrides. Must be declared before importing Valo.
@@ -12,7 +17,7 @@
 //$v-border-radius: 4px;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: hsl(210, 0%, 98%);
+$v-background-color: #343434;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: $v-background-color;
 
@@ -22,7 +27,7 @@
 //$v-shadow-opacity: 5%;
 
 // Defines colors for indicating status (focus, success, failure)
-//$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
+$v-focus-color: $lightblue;
 //$v-friendly-color: #2c9720;
 //$v-error-indicator-color: #ed473b;
 
@@ -31,8 +36,25 @@
 
 @import "../valo/valo.scss";
 
+
 @mixin projectbrokertheme {
   @include valo;
 
   // Insert your own theme rules here
+  .menu-bar
+  {
+    background-color: $midgrey;
+  }
+
+  .menu-button
+  {
+    background-color: $darkgrey !important;
+    color: $lightgrey !important;
+    width: 100%;
+  }
+
+  .searchArea-items
+  {
+    width: 100% !important;
+  }
 }
