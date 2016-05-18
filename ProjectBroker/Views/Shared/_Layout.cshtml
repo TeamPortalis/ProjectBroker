@@ -12,10 +12,10 @@
 <body style="background-color: #626262; width:100%;">
     @if (!ViewBag.Title.Contains("Login"))
     {
-        <div style="background-color: #9e9e9e; width: 100%; height:3%;">
+        <div style="background-color: #9e9e9e; width: 100%; height:4%; float:left;">
             <ul class="breadcrumbs2" style="height:100%;">
-                <li><a href='@Url.Action("Index", "Main")'><span class="icon mif-home" /></a></li>
-                <li><a href='@Url.Action("Index", "Projects")'>Projects</a></li>
+                <li><a href='@Url.Action("Index", "Main")'><span class="icon mif-home" /> Project Broker</a></li>
+                <li><a href='@Url.Action("Index", "Find")'>Find</a></li>
                 <li><a href='@Url.Action("Index", "Admin")'>Admin</a></li>
                 <li><a href='@Url.Action("Index", "Settings")'>Settings</a></li>
             </ul>
