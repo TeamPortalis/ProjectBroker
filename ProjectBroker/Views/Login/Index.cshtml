@@ -1,8 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "Login";
+    
 }
 
+<form method="post" action="@Url.Action(controllerName: "Login", actionName: "Index")" id="login_form">
 <div class="grid" style="width:25%; margin:auto; margin-top:50px;">
     <div class="row cells2">
         <div class="cell">
@@ -13,7 +15,7 @@
     <div class="row cells2">
         <div class="cell">
             <div class="input-control modern text iconic">
-                <input type="text" placeholder="Input login" style="color: #cacaca;" id="user_field">
+                <input type="text" placeholder="Input login" style="color: #cacaca;" name="user" id="user_field">
                 <span class="label" style="color: #cacaca;">Username</span>
                 <span class="informer" style="color: #cacaca;">Please enter your username</span>
                 <span class="icon mif-user"></span>
@@ -21,7 +23,7 @@
         </div>
         <div class="cell">
             <div class="input-control modern password iconic" data-role="input">
-                <input type="password" placeholder="Input password" style="color: #cacaca;" id="password_field">
+                <input type="password" placeholder="Input password" style="color: #cacaca;" name="password" id="password_field">
                 <span class="label" style="color: #cacaca;">Password</span>
                 <span class="informer" style="color: #cacaca;">Please enter your password</span>
                 <span class="icon mif-lock"></span>
@@ -33,15 +35,32 @@
         <div class="cell" style="margin-top:10px;">
             <span style="color: #cacaca;">Remember me &nbsp;</span>
             <label class="switch">
-                <input type="checkbox" id="remember_me">
+                <input type="checkbox" id="remember_me" onclick="changeStateOfRemberMe()">
+                <input type="hidden"  id="rember_value" name="remember_me" value="false"/>
                 <span class="check"></span>
             </label>
         </div>
         <div class="cell">
-            <button class="button" style="background-color:#cacaca; width: 85%;">Login <span class="mif-unlock"></span></button>
+            <button class="button" onclick="startLogin()" style="background-color:#cacaca; width: 85%;">Login <span class="mif-unlock"></span></button>
         </div>
     </div>
 </div>
+</form>
+
+<script>
+    function startLogin() {
+        $("#login_form").submit();
+    }
+
+    function changeStateOfRemberMe() {
+        var value = $("#rember_value").attr("value");
+        if (value === "false") {
+            $("#rember_value").attr("value", "true");
+        } else {
+            $("#rember_value").attr("value", "false");
+        }
+    }
+</script>
 
 
 
