@@ -12,6 +12,10 @@ namespace ProjectBroker.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            if(Session["UName"] != null)
+            {
+                return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
+            }
             return View();
         }
 
@@ -21,8 +25,15 @@ namespace ProjectBroker.Controllers
         {
             ILoginManager l = new MockupLoginManager();
             var result = l.authenticate(MockupLoginManager.CreateLoginToken(user, password));
-            Response.Write("Login " + (result ? "succeeded" : "failed"));
-            return null;
+            if (result)
+            {
+                if (remember_me)
+                    Session["UName"] = user;
+                return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
+            }else
+            {
+                return View("Index");
+            }
         }
     }
 }
