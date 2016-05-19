@@ -15,37 +15,13 @@
         <div style="background-color: #9e9e9e; width: 100%; height:4%; float:left;">
             <ul class="breadcrumbs2" style="height:100%;">
                 <li><a href='@Url.Action("Index", "Main")'><span class="icon mif-home" /> Project Broker</a></li>
-                <li><a href='@Url.Action("Index", "Find")'>Find</a></li>
+                <li><a href="javascript:OpenCharm()">Find</a></li>
                 <li><a href='@Url.Action("Index", "Admin")'>Admin</a></li>
                 <li><a href='@Url.Action("Index", "Settings")'>Settings</a></li>
             </ul>
         </div>
     }
 
-    @if(IsSectionDefined("TopCharm"))
-    {
-        <div id="topCharm" data-role="charm" data-position="top" class="charm top-side">
-            @RenderSection("TopCharm", false)
-        </div>
-    }
-    @if (IsSectionDefined("LeftCharm"))
-    {
-        <div id="leftCharm" data-role="charm" data-position="left" class="charm left-side">
-            @RenderSection("LeftCharm", false)
-        </div>
-    }
-    @if (IsSectionDefined("RightCharm"))
-    {
-        <div id="rightCharm" data-role="charm" data-position="right" class="charm right-side">
-            @RenderSection("RightCharm", false)
-        </div>
-    }
-    @if (IsSectionDefined("BottomCharm"))
-    {
-        <div id="bottomCharm" data-role="charm" data-position="bottom" class="charm bottom-side">
-            @RenderSection("BottomCharm", false)
-        </div>
-    }
     @RenderBody()
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/metro.min.js"></script>

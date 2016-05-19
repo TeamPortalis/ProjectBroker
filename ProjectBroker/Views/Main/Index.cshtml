@@ -32,9 +32,9 @@ Tile Template
         </div>
     </div>
 </div>
-<div class="panel" style="width: 75%; height: 52.1%; background-color: #343434; float:left;">
+<div class="panel" style="width: 75%; height: 52.1%; background-color: #343434; float:left;" id="cur_panel">
     <div class="heading" style="border-left: inset #00658b;">
-        <span class="title">Current Projects</span>
+        <span class="title" id="cur_panel_title">Current Projects</span>
     </div>
     <div class="content" style="border-left: inset #121212;">
         <div class="tile">
@@ -70,7 +70,7 @@ Tile Template
     </div>
 </div>
 
-<div class="panel" style="width: 75%; height: 40%; background-color: #343434; float:left;">
+<div class="panel" style="width: 75%; height: 40%; background-color: #343434; float:left;" id="rec_panel">
     <div class="heading">
         <span class="title">Recommended Projects</span>
     </div>
@@ -107,3 +107,40 @@ Tile Template
         </div>
     </div>
 </div>
+
+<div data-role="charm" data-position="bottom" id="bottomCharm">
+    <div class="input-control text big-input" style="width:80%;">
+        <span class="mif-search prepend-icon"></span>
+        <input type="text" placeholder="Enter a word or keyword ..." class="full-size" style="max-width:100%;">
+        <button class="button" onclick="OnFind()"><span class="mif-search"></span></button>
+    </div>
+    <label class="input-control radio" style="margin-left: 5%;">
+        <input type="radio" name="n1" value="projects" checked>
+        <span class="check"></span>
+        <span class="caption">Projects</span>
+    </label>
+    <label class="input-control radio">
+        <input type="radio" name="n1" value="users">
+        <span class="check"></span>
+        <span class="caption">Users</span>
+    </label>
+</div>
+
+<script>
+    function OpenCharm() {
+        var charm = $("#bottomCharm").data("charm");
+        if (charm.element.data("opened") === true) {
+            charm.close();
+        }
+        else {
+            charm.open();
+        }
+    }
+
+    function OnFind()
+    {
+        document.getElementById("rec_panel").style.visibility = "collapse";
+        document.getElementById("cur_panel").style.height = "92%";
+        document.getElementById("cur_panel_title").textContent = "Results";
+    }
+</script>
