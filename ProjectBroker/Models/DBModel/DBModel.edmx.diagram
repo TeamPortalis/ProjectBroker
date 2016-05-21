@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="380e2c12689a4a9c836ba4db55d0affa" Name="Diagram1">
+        <EntityTypeShape EntityType="projectbrokerModel.d_department" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.p_person" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.phs_projhostingenv" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.pms_projmanagementenv" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.pr_project" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.s_student" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.t_teacher" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.tm_team" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="projectbrokerModel.s_student_s_d_department_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.s_student_s_nr_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.t_teacher_t_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.pr_project_pr_phs_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.pr_project_pr_pms_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.pr_project_pr_t_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.pr_project_pr_tm_id_fkey" ManuallyRouted="false" />
+        <AssociationConnector Association="projectbrokerModel.stm_student_in_team" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

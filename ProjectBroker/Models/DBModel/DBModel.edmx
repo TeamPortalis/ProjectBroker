@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="projectbrokerModel.Store" Provider="Npgsql" ProviderManifestToken="9.5.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="d_department">
+          <Key>
+            <PropertyRef Name="d_id" />
+          </Key>
+          <Property Name="d_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="d_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="p_person">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="p_fname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_lname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="phs_projhostingenv">
+          <Key>
+            <PropertyRef Name="phs_id" />
+          </Key>
+          <Property Name="phs_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="phs_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pms_projmanagementenv">
+          <Key>
+            <PropertyRef Name="pms_id" />
+          </Key>
+          <Property Name="pms_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pms_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="pr_project">
+          <Key>
+            <PropertyRef Name="pr_id" />
+          </Key>
+          <Property Name="pr_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pr_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pr_wiki" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="pr_t_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pr_pms_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pr_phs_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pr_tm_id" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="s_student">
+          <Key>
+            <PropertyRef Name="s_nr" />
+          </Key>
+          <Property Name="s_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="s_address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="s_dob" Type="date" Nullable="false" />
+          <Property Name="s_phonenr" Type="bpchar" MaxLength="15" Nullable="false" />
+          <Property Name="s_d_department" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stm_student_in_team">
+          <Key>
+            <PropertyRef Name="stm_s_id" />
+            <PropertyRef Name="stm_tm_id" />
+          </Key>
+          <Property Name="stm_s_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="stm_tm_id" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_teacher">
+          <Key>
+            <PropertyRef Name="t_id" />
+          </Key>
+          <Property Name="t_id" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_team">
+          <Key>
+            <PropertyRef Name="tm_id" />
+          </Key>
+          <Property Name="tm_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="tm_name" Type="varchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <Association Name="pr_project_pr_phs_id_fkey">
+          <End Role="phs_projhostingenv" Type="Self.phs_projhostingenv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phs_projhostingenv">
+              <PropertyRef Name="phs_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_phs_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_pms_id_fkey">
+          <End Role="pms_projmanagementenv" Type="Self.pms_projmanagementenv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_projmanagementenv">
+              <PropertyRef Name="pms_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_pms_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_t_id_fkey">
+          <End Role="t_teacher" Type="Self.t_teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_teacher">
+              <PropertyRef Name="t_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_t_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_tm_id_fkey">
+          <End Role="tm_team" Type="Self.tm_team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_team">
+              <PropertyRef Name="tm_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_tm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="s_student_s_d_department_fkey">
+          <End Role="d_department" Type="Self.d_department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="s_student" Type="Self.s_student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="d_department">
+              <PropertyRef Name="d_id" />
+            </Principal>
+            <Dependent Role="s_student">
+              <PropertyRef Name="s_d_department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="s_student_s_nr_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="s_student" Type="Self.s_student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="s_student">
+              <PropertyRef Name="s_nr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stm_student_in_team_stm_s_id_fkey">
+          <End Role="s_student" Type="Self.s_student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="stm_student_in_team" Type="Self.stm_student_in_team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="s_student">
+              <PropertyRef Name="s_nr" />
+            </Principal>
+            <Dependent Role="stm_student_in_team">
+              <PropertyRef Name="stm_s_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stm_student_in_team_stm_tm_id_fkey">
+          <End Role="tm_team" Type="Self.tm_team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="stm_student_in_team" Type="Self.stm_student_in_team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_team">
+              <PropertyRef Name="tm_id" />
+            </Principal>
+            <Dependent Role="stm_student_in_team">
+              <PropertyRef Name="stm_tm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_teacher_t_id_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_teacher" Type="Self.t_teacher" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="t_teacher">
+              <PropertyRef Name="t_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projectbrokerModelStoreContainer">
+          <EntitySet Name="d_department" EntityType="Self.d_department" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="p_person" EntityType="Self.p_person" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="phs_projhostingenv" EntityType="Self.phs_projhostingenv" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="pms_projmanagementenv" EntityType="Self.pms_projmanagementenv" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="pr_project" EntityType="Self.pr_project" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="s_student" EntityType="Self.s_student" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="stm_student_in_team" EntityType="Self.stm_student_in_team" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="t_teacher" EntityType="Self.t_teacher" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="tm_team" EntityType="Self.tm_team" Schema="projectbrokerschema" store:Type="Tables" />
+          <AssociationSet Name="pr_project_pr_phs_id_fkey" Association="Self.pr_project_pr_phs_id_fkey">
+            <End Role="phs_projhostingenv" EntitySet="phs_projhostingenv" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_pms_id_fkey" Association="Self.pr_project_pr_pms_id_fkey">
+            <End Role="pms_projmanagementenv" EntitySet="pms_projmanagementenv" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_t_id_fkey" Association="Self.pr_project_pr_t_id_fkey">
+            <End Role="t_teacher" EntitySet="t_teacher" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_tm_id_fkey" Association="Self.pr_project_pr_tm_id_fkey">
+            <End Role="tm_team" EntitySet="tm_team" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="s_student_s_d_department_fkey" Association="Self.s_student_s_d_department_fkey">
+            <End Role="d_department" EntitySet="d_department" />
+            <End Role="s_student" EntitySet="s_student" />
+          </AssociationSet>
+          <AssociationSet Name="s_student_s_nr_fkey" Association="Self.s_student_s_nr_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="s_student" EntitySet="s_student" />
+          </AssociationSet>
+          <AssociationSet Name="stm_student_in_team_stm_s_id_fkey" Association="Self.stm_student_in_team_stm_s_id_fkey">
+            <End Role="s_student" EntitySet="s_student" />
+            <End Role="stm_student_in_team" EntitySet="stm_student_in_team" />
+          </AssociationSet>
+          <AssociationSet Name="stm_student_in_team_stm_tm_id_fkey" Association="Self.stm_student_in_team_stm_tm_id_fkey">
+            <End Role="tm_team" EntitySet="tm_team" />
+            <End Role="stm_student_in_team" EntitySet="stm_student_in_team" />
+          </AssociationSet>
+          <AssociationSet Name="t_teacher_t_id_fkey" Association="Self.t_teacher_t_id_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="t_teacher" EntitySet="t_teacher" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projectbrokerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="d_department">
+          <Key>
+            <PropertyRef Name="d_id" />
+          </Key>
+          <Property Name="d_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="d_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="s_student" Relationship="Self.s_student_s_d_department_fkey" FromRole="d_department" ToRole="s_student" />
+        </EntityType>
+        <EntityType Name="p_person">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="s_student" Relationship="Self.s_student_s_nr_fkey" FromRole="p_person" ToRole="s_student" />
+          <NavigationProperty Name="t_teacher" Relationship="Self.t_teacher_t_id_fkey" FromRole="p_person" ToRole="t_teacher" />
+        </EntityType>
+        <EntityType Name="phs_projhostingenv">
+          <Key>
+            <PropertyRef Name="phs_id" />
+          </Key>
+          <Property Name="phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phs_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_phs_id_fkey" FromRole="phs_projhostingenv" ToRole="pr_project" />
+        </EntityType>
+        <EntityType Name="pms_projmanagementenv">
+          <Key>
+            <PropertyRef Name="pms_id" />
+          </Key>
+          <Property Name="pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pms_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_pms_id_fkey" FromRole="pms_projmanagementenv" ToRole="pr_project" />
+        </EntityType>
+        <EntityType Name="pr_project">
+          <Key>
+            <PropertyRef Name="pr_id" />
+          </Key>
+          <Property Name="pr_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_wiki" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_t_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_tm_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="phs_projhostingenv" Relationship="Self.pr_project_pr_phs_id_fkey" FromRole="pr_project" ToRole="phs_projhostingenv" />
+          <NavigationProperty Name="pms_projmanagementenv" Relationship="Self.pr_project_pr_pms_id_fkey" FromRole="pr_project" ToRole="pms_projmanagementenv" />
+          <NavigationProperty Name="t_teacher" Relationship="Self.pr_project_pr_t_id_fkey" FromRole="pr_project" ToRole="t_teacher" />
+          <NavigationProperty Name="tm_team" Relationship="Self.pr_project_pr_tm_id_fkey" FromRole="pr_project" ToRole="tm_team" />
+        </EntityType>
+        <EntityType Name="s_student">
+          <Key>
+            <PropertyRef Name="s_nr" />
+          </Key>
+          <Property Name="s_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="s_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="s_dob" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="s_phonenr" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="s_d_department" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="d_department" Relationship="Self.s_student_s_d_department_fkey" FromRole="s_student" ToRole="d_department" />
+          <NavigationProperty Name="p_person" Relationship="Self.s_student_s_nr_fkey" FromRole="s_student" ToRole="p_person" />
+          <NavigationProperty Name="tm_team" Relationship="Self.stm_student_in_team" FromRole="s_student" ToRole="tm_team" />
+        </EntityType>
+        <EntityType Name="t_teacher">
+          <Key>
+            <PropertyRef Name="t_id" />
+          </Key>
+          <Property Name="t_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="p_person" Relationship="Self.t_teacher_t_id_fkey" FromRole="t_teacher" ToRole="p_person" />
+          <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_t_id_fkey" FromRole="t_teacher" ToRole="pr_project" />
+        </EntityType>
+        <EntityType Name="tm_team">
+          <Key>
+            <PropertyRef Name="tm_id" />
+          </Key>
+          <Property Name="tm_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tm_name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_tm_id_fkey" FromRole="tm_team" ToRole="pr_project" />
+          <NavigationProperty Name="s_student" Relationship="Self.stm_student_in_team" FromRole="tm_team" ToRole="s_student" />
+        </EntityType>
+        <Association Name="s_student_s_d_department_fkey">
+          <End Role="d_department" Type="Self.d_department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="s_student" Type="Self.s_student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="d_department">
+              <PropertyRef Name="d_id" />
+            </Principal>
+            <Dependent Role="s_student">
+              <PropertyRef Name="s_d_department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="s_student_s_nr_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="s_student" Type="Self.s_student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="s_student">
+              <PropertyRef Name="s_nr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="t_teacher_t_id_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_teacher" Type="Self.t_teacher" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="t_teacher">
+              <PropertyRef Name="t_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_phs_id_fkey">
+          <End Role="phs_projhostingenv" Type="Self.phs_projhostingenv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phs_projhostingenv">
+              <PropertyRef Name="phs_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_phs_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_pms_id_fkey">
+          <End Role="pms_projmanagementenv" Type="Self.pms_projmanagementenv" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_projmanagementenv">
+              <PropertyRef Name="pms_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_pms_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_t_id_fkey">
+          <End Role="t_teacher" Type="Self.t_teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_teacher">
+              <PropertyRef Name="t_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_t_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pr_project_pr_tm_id_fkey">
+          <End Role="tm_team" Type="Self.tm_team" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pr_project" Type="Self.pr_project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_team">
+              <PropertyRef Name="tm_id" />
+            </Principal>
+            <Dependent Role="pr_project">
+              <PropertyRef Name="pr_tm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stm_student_in_team">
+          <End Role="s_student" Type="Self.s_student" Multiplicity="*" />
+          <End Role="tm_team" Type="Self.tm_team" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProjectBrokerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="d_department" EntityType="Self.d_department" />
+          <EntitySet Name="p_person" EntityType="Self.p_person" />
+          <EntitySet Name="phs_projhostingenv" EntityType="Self.phs_projhostingenv" />
+          <EntitySet Name="pms_projmanagementenv" EntityType="Self.pms_projmanagementenv" />
+          <EntitySet Name="pr_project" EntityType="Self.pr_project" />
+          <EntitySet Name="s_student" EntityType="Self.s_student" />
+          <EntitySet Name="t_teacher" EntityType="Self.t_teacher" />
+          <EntitySet Name="tm_team" EntityType="Self.tm_team" />
+          <AssociationSet Name="s_student_s_d_department_fkey" Association="Self.s_student_s_d_department_fkey">
+            <End Role="d_department" EntitySet="d_department" />
+            <End Role="s_student" EntitySet="s_student" />
+          </AssociationSet>
+          <AssociationSet Name="s_student_s_nr_fkey" Association="Self.s_student_s_nr_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="s_student" EntitySet="s_student" />
+          </AssociationSet>
+          <AssociationSet Name="t_teacher_t_id_fkey" Association="Self.t_teacher_t_id_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="t_teacher" EntitySet="t_teacher" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_phs_id_fkey" Association="Self.pr_project_pr_phs_id_fkey">
+            <End Role="phs_projhostingenv" EntitySet="phs_projhostingenv" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_pms_id_fkey" Association="Self.pr_project_pr_pms_id_fkey">
+            <End Role="pms_projmanagementenv" EntitySet="pms_projmanagementenv" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_t_id_fkey" Association="Self.pr_project_pr_t_id_fkey">
+            <End Role="t_teacher" EntitySet="t_teacher" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="pr_project_pr_tm_id_fkey" Association="Self.pr_project_pr_tm_id_fkey">
+            <End Role="tm_team" EntitySet="tm_team" />
+            <End Role="pr_project" EntitySet="pr_project" />
+          </AssociationSet>
+          <AssociationSet Name="stm_student_in_team" Association="Self.stm_student_in_team">
+            <End Role="s_student" EntitySet="s_student" />
+            <End Role="tm_team" EntitySet="tm_team" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projectbrokerModelStoreContainer" CdmEntityContainer="ProjectBrokerEntities">
+          <EntitySetMapping Name="d_department">
+            <EntityTypeMapping TypeName="projectbrokerModel.d_department">
+              <MappingFragment StoreEntitySet="d_department">
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="d_name" ColumnName="d_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_person">
+            <EntityTypeMapping TypeName="projectbrokerModel.p_person">
+              <MappingFragment StoreEntitySet="p_person">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_fname" ColumnName="p_fname" />
+                <ScalarProperty Name="p_lname" ColumnName="p_lname" />
+                <ScalarProperty Name="p_email" ColumnName="p_email" />
+                <ScalarProperty Name="p_password" ColumnName="p_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phs_projhostingenv">
+            <EntityTypeMapping TypeName="projectbrokerModel.phs_projhostingenv">
+              <MappingFragment StoreEntitySet="phs_projhostingenv">
+                <ScalarProperty Name="phs_id" ColumnName="phs_id" />
+                <ScalarProperty Name="phs_name" ColumnName="phs_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pms_projmanagementenv">
+            <EntityTypeMapping TypeName="projectbrokerModel.pms_projmanagementenv">
+              <MappingFragment StoreEntitySet="pms_projmanagementenv">
+                <ScalarProperty Name="pms_id" ColumnName="pms_id" />
+                <ScalarProperty Name="pms_name" ColumnName="pms_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pr_project">
+            <EntityTypeMapping TypeName="projectbrokerModel.pr_project">
+              <MappingFragment StoreEntitySet="pr_project">
+                <ScalarProperty Name="pr_id" ColumnName="pr_id" />
+                <ScalarProperty Name="pr_name" ColumnName="pr_name" />
+                <ScalarProperty Name="pr_wiki" ColumnName="pr_wiki" />
+                <ScalarProperty Name="pr_t_id" ColumnName="pr_t_id" />
+                <ScalarProperty Name="pr_pms_id" ColumnName="pr_pms_id" />
+                <ScalarProperty Name="pr_phs_id" ColumnName="pr_phs_id" />
+                <ScalarProperty Name="pr_tm_id" ColumnName="pr_tm_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="s_student">
+            <EntityTypeMapping TypeName="projectbrokerModel.s_student">
+              <MappingFragment StoreEntitySet="s_student">
+                <ScalarProperty Name="s_nr" ColumnName="s_nr" />
+                <ScalarProperty Name="s_address" ColumnName="s_address" />
+                <ScalarProperty Name="s_dob" ColumnName="s_dob" />
+                <ScalarProperty Name="s_phonenr" ColumnName="s_phonenr" />
+                <ScalarProperty Name="s_d_department" ColumnName="s_d_department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_teacher">
+            <EntityTypeMapping TypeName="projectbrokerModel.t_teacher">
+              <MappingFragment StoreEntitySet="t_teacher">
+                <ScalarProperty Name="t_id" ColumnName="t_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_team">
+            <EntityTypeMapping TypeName="projectbrokerModel.tm_team">
+              <MappingFragment StoreEntitySet="tm_team">
+                <ScalarProperty Name="tm_id" ColumnName="tm_id" />
+                <ScalarProperty Name="tm_name" ColumnName="tm_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="stm_student_in_team" TypeName="projectbrokerModel.stm_student_in_team" StoreEntitySet="stm_student_in_team">
+            <EndProperty Name="s_student">
+              <ScalarProperty Name="s_nr" ColumnName="stm_s_id" />
+            </EndProperty>
+            <EndProperty Name="tm_team">
+              <ScalarProperty Name="tm_id" ColumnName="stm_tm_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
