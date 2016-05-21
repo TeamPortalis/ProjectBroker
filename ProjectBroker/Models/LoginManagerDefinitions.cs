@@ -21,4 +21,9 @@ namespace ProjectBroker.Models
     {
         USER_PASS, TOKEN
     }
+
+    public interface IAuthTokenFactory<TInput>
+    {
+        IAuthToken CreateAuthToken(TInput authParams);
+    }
 }

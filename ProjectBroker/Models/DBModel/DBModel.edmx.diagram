@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="fc743ed4b54a4ece87a2242446defd96" Name="Diagram1">
         <EntityTypeShape EntityType="projectbrokerModel.d_department" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="projectbrokerModel.l_login_info" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectbrokerModel.l_login_info" Width="1.5" PointX="2.375" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="projectbrokerModel.lpr_login_person_relation" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="projectbrokerModel.p_person" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="projectbrokerModel.phs_projhostingenv" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
