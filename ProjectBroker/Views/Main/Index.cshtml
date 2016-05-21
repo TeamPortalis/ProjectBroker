@@ -29,6 +29,10 @@ Tile Template
         <div id="user-lower" style="width:100%; height:50%; vertical-align:bottom;">
             <p>User: <span style="color: #00a1dd;">User@*@Session["UName"].ToString()*@</span></p>
             <p>E-Mail: <span style="color: #00a1dd;">some@email.thing@*@Session["EMail"].ToString()*@</span></p>
+            <br />
+            <br />
+            <button class="button">Logout</button>
+            <button class="button">New Project</button>
         </div>
     </div>
 </div>
@@ -139,7 +143,7 @@ Tile Template
 
     function OnFind()
     {
-        document.getElementById("rec_panel").style.visibility = "collapse";
+        document.getElementById("rec_panel").style.visibility = "hidden";
         document.getElementById("cur_panel").style.height = "92%";
         document.getElementById("cur_panel_title").textContent = "Results";
     }
