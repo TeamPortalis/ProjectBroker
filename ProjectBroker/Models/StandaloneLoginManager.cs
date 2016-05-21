@@ -10,13 +10,12 @@ namespace ProjectBroker.Models
     public class StandaloneLoginManage : ILoginManager, IAuthTokenFactory<StandaloneAuthParams>
     {
 
-        private static projectbrokerEntities db = new projectbrokerEntities();
 
         public bool authenticate(IAuthToken authenticationToken)
         {
             if(authenticationToken.Type == AuthenticationType.USER_PASS)
             {
-                lpr_login_person_relation login = (from p in db.lpr_login_person_relation
+                lpr_login_person_relation login = (from p in DBManager.db.lpr_login_person_relation
                                                    where p.lpr_username == authenticationToken.Username
                                                    select p).FirstOrDefault();
                 if (login == null)
@@ -29,14 +28,46 @@ namespace ProjectBroker.Models
                 if (Convert.ToBase64String(hashed).Equals(login.l_login_info.l_authtoken))
                     return true;
                 return false;
-                
-                
             }
+            return false;
         }
 
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
         {
-            
+             if(authParams.Type == AuthenticationType.USER_PASS)
+            {
+                return new InternalAuthToken(authParams.Username, authParams.Password, AuthenticationType.USER_PASS);
+            } else
+            {
+                return new InternalAuthToken(authParams.Username, authParams.AuthToken, AuthenticationType.TOKEN);
+            }
+        }
+
+        private class InternalAuthToken : IAuthToken
+        {
+
+            public InternalAuthToken(string username, string token, AuthenticationType type)
+            {
+                Token = token;
+                Type = type;
+                Username = username;
+            }
+
+            public string Token
+            {
+                get; private set;
+               
+            }
+
+            public AuthenticationType Type
+            {
+                get; private set;
+            }
+
+            public string Username
+            {
+                get; private set;
+            }
         }
     }
 }
