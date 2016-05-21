@@ -13,10 +13,10 @@ namespace ProjectBroker.Models.DBModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectBrokerEntities : DbContext
+    public partial class projectbrokerEntities : DbContext
     {
-        public ProjectBrokerEntities()
-            : base("name=ProjectBrokerEntities")
+        public projectbrokerEntities()
+            : base("name=projectbrokerEntities")
         {
         }
     
@@ -26,6 +26,8 @@ namespace ProjectBroker.Models.DBModel
         }
     
         public virtual DbSet<d_department> d_department { get; set; }
+        public virtual DbSet<l_login_info> l_login_info { get; set; }
+        public virtual DbSet<lpr_login_person_relation> lpr_login_person_relation { get; set; }
         public virtual DbSet<p_person> p_person { get; set; }
         public virtual DbSet<phs_projhostingenv> phs_projhostingenv { get; set; }
         public virtual DbSet<pms_projmanagementenv> pms_projmanagementenv { get; set; }

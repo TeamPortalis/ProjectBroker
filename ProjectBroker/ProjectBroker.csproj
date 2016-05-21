@@ -180,6 +180,12 @@
     <Compile Include="Models\DBModel\d_department.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBModel\lpr_login_person_relation.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBModel\l_login_info.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DBModel\phs_projhostingenv.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

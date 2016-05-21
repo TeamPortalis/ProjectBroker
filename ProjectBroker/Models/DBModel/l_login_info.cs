@@ -12,23 +12,19 @@ namespace ProjectBroker.Models.DBModel
     using System;
     using System.Collections.Generic;
     
-    public partial class p_person
+    public partial class l_login_info
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public p_person()
+        public l_login_info()
         {
             this.lpr_login_person_relation = new HashSet<lpr_login_person_relation>();
         }
     
-        public string p_id { get; set; }
-        public string p_fname { get; set; }
-        public string p_lname { get; set; }
-        public string p_email { get; set; }
-        public string p_password { get; set; }
+        public int l_id { get; set; }
+        public string l_authtoken { get; set; }
+        public string l_salt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lpr_login_person_relation> lpr_login_person_relation { get; set; }
-        public virtual s_student s_student { get; set; }
-        public virtual t_teacher t_teacher { get; set; }
     }
 }

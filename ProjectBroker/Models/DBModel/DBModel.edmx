@@ -12,6 +12,23 @@
           <Property Name="d_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="d_name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="l_login_info">
+          <Key>
+            <PropertyRef Name="l_id" />
+          </Key>
+          <Property Name="l_id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="l_authtoken" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="l_salt" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lpr_login_person_relation">
+          <Key>
+            <PropertyRef Name="lpr_l_login" />
+            <PropertyRef Name="lpr_p_person" />
+          </Key>
+          <Property Name="lpr_l_login" Type="int4" Nullable="false" />
+          <Property Name="lpr_p_person" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="lpr_username" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
         <EntityType Name="p_person">
           <Key>
             <PropertyRef Name="p_id" />
@@ -43,6 +60,7 @@
           <Property Name="pr_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="pr_wiki" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="pr_image" Type="varchar" MaxLength="500" />
           <Property Name="pr_t_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_pms_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_phs_id" Type="varchar" MaxLength="10" Nullable="false" />
@@ -79,6 +97,34 @@
           <Property Name="tm_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="tm_name" Type="varchar" MaxLength="75" Nullable="false" />
         </EntityType>
+        <Association Name="lpr_login_person_relation_lpr_l_login_fkey">
+          <End Role="l_login_info" Type="Self.l_login_info" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lpr_login_person_relation" Type="Self.lpr_login_person_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="l_login_info">
+              <PropertyRef Name="l_id" />
+            </Principal>
+            <Dependent Role="lpr_login_person_relation">
+              <PropertyRef Name="lpr_l_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lpr_login_person_relation_lpr_p_person_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lpr_login_person_relation" Type="Self.lpr_login_person_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="lpr_login_person_relation">
+              <PropertyRef Name="lpr_p_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="pr_project_pr_phs_id_fkey">
           <End Role="phs_projhostingenv" Type="Self.phs_projhostingenv" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -207,6 +253,8 @@
         </Association>
         <EntityContainer Name="projectbrokerModelStoreContainer">
           <EntitySet Name="d_department" EntityType="Self.d_department" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="l_login_info" EntityType="Self.l_login_info" Schema="projectbrokerschema" store:Type="Tables" />
+          <EntitySet Name="lpr_login_person_relation" EntityType="Self.lpr_login_person_relation" Schema="projectbrokerschema" store:Type="Tables" />
           <EntitySet Name="p_person" EntityType="Self.p_person" Schema="projectbrokerschema" store:Type="Tables" />
           <EntitySet Name="phs_projhostingenv" EntityType="Self.phs_projhostingenv" Schema="projectbrokerschema" store:Type="Tables" />
           <EntitySet Name="pms_projmanagementenv" EntityType="Self.pms_projmanagementenv" Schema="projectbrokerschema" store:Type="Tables" />
@@ -215,6 +263,14 @@
           <EntitySet Name="stm_student_in_team" EntityType="Self.stm_student_in_team" Schema="projectbrokerschema" store:Type="Tables" />
           <EntitySet Name="t_teacher" EntityType="Self.t_teacher" Schema="projectbrokerschema" store:Type="Tables" />
           <EntitySet Name="tm_team" EntityType="Self.tm_team" Schema="projectbrokerschema" store:Type="Tables" />
+          <AssociationSet Name="lpr_login_person_relation_lpr_l_login_fkey" Association="Self.lpr_login_person_relation_lpr_l_login_fkey">
+            <End Role="l_login_info" EntitySet="l_login_info" />
+            <End Role="lpr_login_person_relation" EntitySet="lpr_login_person_relation" />
+          </AssociationSet>
+          <AssociationSet Name="lpr_login_person_relation_lpr_p_person_fkey" Association="Self.lpr_login_person_relation_lpr_p_person_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="lpr_login_person_relation" EntitySet="lpr_login_person_relation" />
+          </AssociationSet>
           <AssociationSet Name="pr_project_pr_phs_id_fkey" Association="Self.pr_project_pr_phs_id_fkey">
             <End Role="phs_projhostingenv" EntitySet="phs_projhostingenv" />
             <End Role="pr_project" EntitySet="pr_project" />
@@ -265,6 +321,26 @@
           <Property Name="d_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="s_student" Relationship="Self.s_student_s_d_department_fkey" FromRole="d_department" ToRole="s_student" />
         </EntityType>
+        <EntityType Name="l_login_info">
+          <Key>
+            <PropertyRef Name="l_id" />
+          </Key>
+          <Property Name="l_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="l_authtoken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="l_salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="lpr_login_person_relation" Relationship="Self.lpr_login_person_relation_lpr_l_login_fkey" FromRole="l_login_info" ToRole="lpr_login_person_relation" />
+        </EntityType>
+        <EntityType Name="lpr_login_person_relation">
+          <Key>
+            <PropertyRef Name="lpr_l_login" />
+            <PropertyRef Name="lpr_p_person" />
+          </Key>
+          <Property Name="lpr_l_login" Type="Int32" Nullable="false" />
+          <Property Name="lpr_p_person" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lpr_username" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="l_login_info" Relationship="Self.lpr_login_person_relation_lpr_l_login_fkey" FromRole="lpr_login_person_relation" ToRole="l_login_info" />
+          <NavigationProperty Name="p_person" Relationship="Self.lpr_login_person_relation_lpr_p_person_fkey" FromRole="lpr_login_person_relation" ToRole="p_person" />
+        </EntityType>
         <EntityType Name="p_person">
           <Key>
             <PropertyRef Name="p_id" />
@@ -274,6 +350,7 @@
           <Property Name="p_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="lpr_login_person_relation" Relationship="Self.lpr_login_person_relation_lpr_p_person_fkey" FromRole="p_person" ToRole="lpr_login_person_relation" />
           <NavigationProperty Name="s_student" Relationship="Self.s_student_s_nr_fkey" FromRole="p_person" ToRole="s_student" />
           <NavigationProperty Name="t_teacher" Relationship="Self.t_teacher_t_id_fkey" FromRole="p_person" ToRole="t_teacher" />
         </EntityType>
@@ -300,6 +377,7 @@
           <Property Name="pr_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_wiki" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="pr_t_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
@@ -350,6 +428,34 @@
             </Principal>
             <Dependent Role="s_student">
               <PropertyRef Name="s_d_department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lpr_login_person_relation_lpr_l_login_fkey">
+          <End Role="l_login_info" Type="Self.l_login_info" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lpr_login_person_relation" Type="Self.lpr_login_person_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="l_login_info">
+              <PropertyRef Name="l_id" />
+            </Principal>
+            <Dependent Role="lpr_login_person_relation">
+              <PropertyRef Name="lpr_l_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lpr_login_person_relation_lpr_p_person_fkey">
+          <End Role="p_person" Type="Self.p_person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lpr_login_person_relation" Type="Self.lpr_login_person_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="p_person">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="lpr_login_person_relation">
+              <PropertyRef Name="lpr_p_person" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -441,8 +547,10 @@
           <End Role="s_student" Type="Self.s_student" Multiplicity="*" />
           <End Role="tm_team" Type="Self.tm_team" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ProjectBrokerEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="projectbrokerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="d_department" EntityType="Self.d_department" />
+          <EntitySet Name="l_login_info" EntityType="Self.l_login_info" />
+          <EntitySet Name="lpr_login_person_relation" EntityType="Self.lpr_login_person_relation" />
           <EntitySet Name="p_person" EntityType="Self.p_person" />
           <EntitySet Name="phs_projhostingenv" EntityType="Self.phs_projhostingenv" />
           <EntitySet Name="pms_projmanagementenv" EntityType="Self.pms_projmanagementenv" />
@@ -453,6 +561,14 @@
           <AssociationSet Name="s_student_s_d_department_fkey" Association="Self.s_student_s_d_department_fkey">
             <End Role="d_department" EntitySet="d_department" />
             <End Role="s_student" EntitySet="s_student" />
+          </AssociationSet>
+          <AssociationSet Name="lpr_login_person_relation_lpr_l_login_fkey" Association="Self.lpr_login_person_relation_lpr_l_login_fkey">
+            <End Role="l_login_info" EntitySet="l_login_info" />
+            <End Role="lpr_login_person_relation" EntitySet="lpr_login_person_relation" />
+          </AssociationSet>
+          <AssociationSet Name="lpr_login_person_relation_lpr_p_person_fkey" Association="Self.lpr_login_person_relation_lpr_p_person_fkey">
+            <End Role="p_person" EntitySet="p_person" />
+            <End Role="lpr_login_person_relation" EntitySet="lpr_login_person_relation" />
           </AssociationSet>
           <AssociationSet Name="s_student_s_nr_fkey" Association="Self.s_student_s_nr_fkey">
             <End Role="p_person" EntitySet="p_person" />
@@ -488,12 +604,30 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="projectbrokerModelStoreContainer" CdmEntityContainer="ProjectBrokerEntities">
+        <EntityContainerMapping StorageEntityContainer="projectbrokerModelStoreContainer" CdmEntityContainer="projectbrokerEntities">
           <EntitySetMapping Name="d_department">
             <EntityTypeMapping TypeName="projectbrokerModel.d_department">
               <MappingFragment StoreEntitySet="d_department">
                 <ScalarProperty Name="d_id" ColumnName="d_id" />
                 <ScalarProperty Name="d_name" ColumnName="d_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="l_login_info">
+            <EntityTypeMapping TypeName="projectbrokerModel.l_login_info">
+              <MappingFragment StoreEntitySet="l_login_info">
+                <ScalarProperty Name="l_id" ColumnName="l_id" />
+                <ScalarProperty Name="l_authtoken" ColumnName="l_authtoken" />
+                <ScalarProperty Name="l_salt" ColumnName="l_salt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lpr_login_person_relation">
+            <EntityTypeMapping TypeName="projectbrokerModel.lpr_login_person_relation">
+              <MappingFragment StoreEntitySet="lpr_login_person_relation">
+                <ScalarProperty Name="lpr_l_login" ColumnName="lpr_l_login" />
+                <ScalarProperty Name="lpr_p_person" ColumnName="lpr_p_person" />
+                <ScalarProperty Name="lpr_username" ColumnName="lpr_username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -530,6 +664,7 @@
                 <ScalarProperty Name="pr_id" ColumnName="pr_id" />
                 <ScalarProperty Name="pr_name" ColumnName="pr_name" />
                 <ScalarProperty Name="pr_wiki" ColumnName="pr_wiki" />
+                <ScalarProperty Name="pr_image" ColumnName="pr_image" />
                 <ScalarProperty Name="pr_t_id" ColumnName="pr_t_id" />
                 <ScalarProperty Name="pr_pms_id" ColumnName="pr_pms_id" />
                 <ScalarProperty Name="pr_phs_id" ColumnName="pr_phs_id" />
