@@ -1,5 +1,4 @@
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA projectbrokerschema TO projectbroker;
-DROP SCHEMA IF EXISTS projectbrokerschema CASCADE ;
+DROP SCHEMA IF EXISTS projectbrokerschema CASCADE;
 CREATE SCHEMA projectbrokerschema;
 
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.p_person(
@@ -9,6 +8,7 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.p_person(
 	p_email VARCHAR(50) NOT NULL,		-- This is okay
 	p_password VARCHAR(50) NOT NULL -- This is a big taboo in DB Engineering, very unsecure way of handling passwords
 );
+
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.d_department(
 	--  The department table is more or less specific for our school, so this should
 	--  be changed at a later point

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,7 +51,27 @@ namespace ProjectBroker.Controllers
             db.s_student.Add(s);
             db.SaveChanges();
 
-            d.
+            l_login_info linfo = new l_login_info()
+            {
+                l_salt = DBManager.GenerateSalt()
+            };
+
+            var token = DBManager.ComputeHash("1234", linfo.l_salt);
+            linfo.l_authtoken = token;
+            db.l_login_info.Add(linfo);
+            db.SaveChanges();
+
+            lpr_login_person_relation login_relation = new lpr_login_person_relation()
+            {
+                lpr_l_login = linfo.l_id,
+                lpr_p_person = p.p_id,
+                lpr_username = "test"
+            };
+
+            db.lpr_login_person_relation.Add(login_relation);
+            db.SaveChanges();
+            
+            
 
             return Redirect(Url.Action("Index"));
         }
