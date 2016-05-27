@@ -17,8 +17,8 @@
             <PropertyRef Name="l_id" />
           </Key>
           <Property Name="l_id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="l_authtoken" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="l_salt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="l_authtoken" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="l_salt" Type="varchar" MaxLength="31" Nullable="false" />
         </EntityType>
         <EntityType Name="lpr_login_person_relation">
           <Key>
@@ -326,8 +326,8 @@
             <PropertyRef Name="l_id" />
           </Key>
           <Property Name="l_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="l_authtoken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="l_salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="l_authtoken" Type="String" MaxLength="62" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="l_salt" Type="String" MaxLength="31" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="lpr_login_person_relation" Relationship="Self.lpr_login_person_relation_lpr_l_login_fkey" FromRole="l_login_info" ToRole="lpr_login_person_relation" />
         </EntityType>
         <EntityType Name="lpr_login_person_relation">

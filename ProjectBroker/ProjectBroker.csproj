@@ -165,8 +165,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DBModel\DBManager.cs" />
-    <Compile Include="Models\StandaloneAuthParams.cs" />
-    <Compile Include="Models\StandaloneLoginManager.cs" />
     <Compile Include="Models\DBModel\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -212,6 +210,8 @@
     <Compile Include="Models\DBModel\t_teacher.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StandaloneAuthParams.cs" />
+    <Compile Include="Models\StandaloneLoginManager.cs" />
     <Compile Include="Models\MockupManger.cs" />
     <Compile Include="Models\LoginManagerDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

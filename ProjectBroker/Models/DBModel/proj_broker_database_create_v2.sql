@@ -6,7 +6,7 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.p_person(
 	p_fName VARCHAR(50) NOT NULL,
 	p_lName VARCHAR(50) NOT NULL,
 	p_email VARCHAR(50) NOT NULL,		-- This is okay
-	p_password VARCHAR(50) NOT NULL -- This is a big taboo in DB Engineering, very unsecure way of handling passwords
+	p_password VARCHAR(50) NOT NULL -- This is a BIG TABOO in DB Engineering, very unsecure way of handling passwords
 );
 
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.d_department(
@@ -70,8 +70,8 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.pr_project(
 
 CREATE TABLE IF NOT EXISTS projectbrokerschema.l_login_info (
 	l_id SERIAL NOT NULL,
-	l_authtoken VARCHAR(200) NOT NULL ,
-	l_salt VARCHAR(50) NOT NULL,
+	l_authtoken VARCHAR(62) NOT NULL ,
+	l_salt VARCHAR(31) NOT NULL,
 	PRIMARY KEY (l_id)
 );
 
@@ -82,4 +82,45 @@ CREATE TABLE IF NOT EXISTS projectbrokerschema.lpr_login_person_relation (
 	PRIMARY KEY (lpr_l_login, lpr_p_person),
 	FOREIGN KEY (lpr_l_login) REFERENCES projectbrokerschema.l_login_info (l_id) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (lpr_p_person) REFERENCES projectbrokerschema.p_person (p_ID) ON UPDATE CASCADE ON DELETE CASCADE
-)
+);
+
+
+DROP FUNCTION IF EXISTS projectbrokerschema.uf_create_net_user(
+	IN username VARCHAR(100),
+	IN password VARCHAR(100)
+);
+CREATE OR REPLACE FUNCTION projectbrokerschema.uf_create_new_user(
+	IN username VARCHAR(100),
+	IN password VARCHAR(100),
+	IN persId 	VARCHAR(10)
+) RETURNS VOID AS $$
+DECLARE
+	numOfElements INT := 0;
+	hashedString VARCHAR(61);
+	salt VARCHAR(61);
+	lid INT;
+BEGIN
+	numOfElements := (SELECT count(*) FROM projectbrokerschema.lpr_login_person_relation AS pl
+	WHERE username = pl.lpr_username);
+
+	IF numOfElements > 0
+	THEN
+		RETURN;
+	END IF;
+
+	salt := (SELECT gen_salt('bf', 8));
+
+	hashedString := (
+		SELECT crypt("password", salt)
+	);
+
+	INSERT INTO projectbrokerschema.l_login_info (l_authtoken, l_salt)
+		VALUES (hashedString, salt);
+
+	lid := (SELECT l.l_id FROM projectbrokerschema.l_login_info AS l
+		WHERE l.l_authtoken = hashedString AND l.l_salt = salt);
+
+	INSERT INTO projectbrokerschema.lpr_login_person_relation (lpr_l_login, lpr_p_person, lpr_username)
+		VALUES (lid, persId, username);
+END;
+$$ LANGUAGE plpgsql;

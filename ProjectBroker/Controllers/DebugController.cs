@@ -1,6 +1,7 @@
 ﻿using ProjectBroker.Models.DBModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -13,6 +14,7 @@ namespace ProjectBroker.Controllers
         // GET: Debug
         public ActionResult Index()
         {
+            ViewBag.NoTestData = false;
             return View();
         }
 
@@ -51,28 +53,39 @@ namespace ProjectBroker.Controllers
             db.s_student.Add(s);
             db.SaveChanges();
 
-            l_login_info linfo = new l_login_info()
+            var b = db.Database.Connection.ConnectionString;
+
+            using (var conn = new Npgsql.NpgsqlConnection(connectionString: b))
             {
-                l_salt = DBManager.GenerateSalt()
-            };
+                conn.Open();
+               
+                using (Npgsql.NpgsqlCommand q = conn.CreateCommand())
+                {
+                    q.CommandText = "SELECT projectbrokerschema.uf_create_new_user(@user, @pass, @pid)";
+                    Npgsql.NpgsqlParameter user =  q.CreateParameter();
+                    user.ParameterName = "@user";
+                    user.Value = "test";
 
-            var token = DBManager.ComputeHash("1234", linfo.l_salt);
-            linfo.l_authtoken = token;
-            db.l_login_info.Add(linfo);
-            db.SaveChanges();
+                    Npgsql.NpgsqlParameter pass = q.CreateParameter();
+                    pass.ParameterName = "@pass";
+                    pass.Value = "1234";
 
-            lpr_login_person_relation login_relation = new lpr_login_person_relation()
-            {
-                lpr_l_login = linfo.l_id,
-                lpr_p_person = p.p_id,
-                lpr_username = "test"
-            };
+                    Npgsql.NpgsqlParameter lid = q.CreateParameter();
+                    lid.ParameterName = "@pid";
+                    lid.Value = s.s_nr;
 
-            db.lpr_login_person_relation.Add(login_relation);
-            db.SaveChanges();
-            
-            
+                  
 
+                    q.Parameters.Add(user);
+                    q.Parameters.Add(pass);
+                    q.Parameters.Add(lid);
+                    q.ExecuteNonQuery();
+
+                }
+            }
+
+
+            ViewBag.NoTestData = true;
             return Redirect(Url.Action("Index"));
         }
     }
