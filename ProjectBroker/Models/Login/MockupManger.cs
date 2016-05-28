@@ -63,5 +63,10 @@ namespace ProjectBroker.Models
                 return false;
             return loginDB[authenticationToken.Username].Equals(authenticationToken.Token);
         }
+
+        public bool authorize(IAuthorizeToken token)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -48,6 +48,11 @@ namespace ProjectBroker.Models
 
         }
 
+        public bool authorize(IAuthorizeToken token)
+        {
+            throw new NotImplementedException();
+        }
+
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
         {
              if(authParams.Type == AuthenticationType.USER_PASS)
