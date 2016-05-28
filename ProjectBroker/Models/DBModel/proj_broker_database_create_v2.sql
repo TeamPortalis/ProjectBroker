@@ -124,3 +124,46 @@ BEGIN
 		VALUES (lid, persId, username);
 END;
 $$ LANGUAGE plpgsql;
+
+DROP FUNCTION IF EXISTS projectbrokerschema.uf_authenticate(
+	IN username VARCHAR(100),
+	IN password VARCHAR(100),
+ IN cursorName VARCHAR(100)
+);
+CREATE OR REPLACE FUNCTION projectbrokerschema.uf_authenticate(
+	IN username VARCHAR(100),
+	IN password VARCHAR(100)
+) RETURNS TABLE(
+	pid VARCHAR(10),
+	authenticated BOOLEAN
+) AS $$
+DECLARE
+	lid INT;
+	pid VARCHAR(10);
+	hashedPass VARCHAR(100);
+	salt VARCHAR(100);
+	intRowCount INT;
+BEGIN
+	DROP TABLE IF EXISTS  res1;
+	CREATE TEMPORARY TABLE res1 ON COMMIT DROP AS SELECT rel.lpr_l_login AS lid, rel.lpr_p_person AS pid  FROM projectbrokerschema.lpr_login_person_relation AS rel LIMIT 1;
+	lid := (SELECT res.lid FROM res1 AS res LIMIT 1);
+	pid := (SELECT res.pid FROM res1 AS res LIMIT 1);
+
+	salt := (SELECT l.l_salt FROM projectbrokerschema.l_login_info AS l WHERE L.l_id = lid LIMIT 1);
+
+	hashedPass := (
+		SELECT crypt(password, salt)
+	);
+
+	intRowCount := (SELECT count(*) FROM projectbrokerschema.l_login_info AS l WHERE l.l_id = lid AND l.l_authtoken = hashedPass);
+
+	DROP TABLE res1;
+
+	IF intRowCount > 0 THEN
+		RETURN QUERY SELECT pid, true;
+	ELSE
+		RETURN QUERY SELECT pid, false;
+	END IF;
+
+END;
+$$ LANGUAGE plpgsql;
