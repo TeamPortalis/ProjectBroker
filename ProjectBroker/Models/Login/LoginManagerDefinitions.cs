@@ -8,6 +8,13 @@ namespace ProjectBroker.Models
     public interface ILoginManager
     {
         bool authenticate(IAuthToken authenticationToken);
+        bool authorize(IAuthorizeToken token);
+    }
+
+    public interface IAuthorizeToken
+    {
+        EntityType EntityType {get;}
+        string Username { get; }
     }
 
     public interface IAuthToken
@@ -20,6 +27,11 @@ namespace ProjectBroker.Models
     public enum AuthenticationType
     {
         USER_PASS, TOKEN
+    }
+    
+    public enum EntityType: long
+    {
+        TEACHER = 1, STUDENT = 2, ADMIN = 4
     }
 
     public interface IAuthTokenFactory<TInput>
