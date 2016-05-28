@@ -86,7 +86,7 @@ namespace ProjectBroker.Controllers
 
 
             ViewBag.NoTestData = true;
-            return Redirect(Url.Action("Index"));
+            return View("Index");
         }
     }
 }
