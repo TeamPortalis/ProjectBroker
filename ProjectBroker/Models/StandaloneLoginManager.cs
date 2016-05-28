@@ -13,23 +13,7 @@ namespace ProjectBroker.Models
 
         public bool authenticate(IAuthToken authenticationToken)
         {
-            if(authenticationToken.Type == AuthenticationType.USER_PASS)
-            {
-                lpr_login_person_relation login = (from p in DBManager.db.lpr_login_person_relation
-                                                   where p.lpr_username == authenticationToken.Username
-                                                   select p).FirstOrDefault();
-                if (login == null)
-                    return false;
-
-                SHA512 hasher = SHA512.Create();
-                var hashString = System.Text.Encoding.UTF8.GetBytes((authenticationToken.Token + login.l_login_info.l_salt).ToCharArray());
-            
-                var hashed = hasher.ComputeHash(hashString);
-                if (Convert.ToBase64String(hashed).Equals(login.l_login_info.l_authtoken))
-                    return true;
-                return false;
-            }
-            return false;
+            //TO-DO ASP.NET login management
         }
 
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)

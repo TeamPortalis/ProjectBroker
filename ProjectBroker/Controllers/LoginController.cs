@@ -10,6 +10,7 @@ namespace ProjectBroker.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+        [AllowAnonymous]
         public ActionResult Index()
         {
             if(Session["UName"] != null)
@@ -21,6 +22,7 @@ namespace ProjectBroker.Controllers
 
         [HttpPost]
         [ActionName("Index")]
+        [AllowAnonymous]
         public ActionResult Login(string user, string password, bool remember_me)
         {
             ILoginManager l = new MockupLoginManager();
