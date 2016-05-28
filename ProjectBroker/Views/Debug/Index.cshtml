@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.NoTestData == false)
+{
+    <button class="button" id="testDataB" onclick="goToTestDataCreation();">Create Test Data</button>
+}
+
+
+@section scripts {
+<script>
+    function goToTestDataCreation() {
+         window.location = "@Url.Action("TestData")";
+    }
+</script>
+}
