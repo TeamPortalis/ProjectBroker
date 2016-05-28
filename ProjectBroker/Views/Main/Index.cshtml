@@ -31,7 +31,7 @@ Tile Template
             <p>E-Mail: <span style="color: #00a1dd;">some@email.thing@*@Session["EMail"].ToString()*@</span></p>
             <br />
             <br />
-            <button class="button">Logout</button>
+            <button class="button" onclick="logout();">Logout</button>
             <button class="button">New Project</button>
         </div>
     </div>
@@ -141,10 +141,10 @@ Tile Template
         }
     }
 
-    function OnFind()
-    {
+    function OnFind() {
         document.getElementById("rec_panel").style.visibility = "hidden";
         document.getElementById("cur_panel").style.height = "92%";
         document.getElementById("cur_panel_title").textContent = "Results";
     }
 </script>
+
