@@ -13,7 +13,39 @@ namespace ProjectBroker.Models
 
         public bool authenticate(IAuthToken authenticationToken)
         {
-            //TO-DO ASP.NET login management
+            var connectionString = DBManager.db.Database.Connection.ConnectionString;
+
+            if (authenticationToken.Type == AuthenticationType.TOKEN)
+                return false;
+
+            using (var conn = new Npgsql.NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+                using(var command = conn.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM projectbrokerschema.uf_authenticate(@user, @pass) AS auth;";
+
+                    var user = command.CreateParameter();
+                    user.ParameterName = "@user";
+                    user.Value = authenticationToken.Username;
+
+                    var pass = command.CreateParameter();
+                    pass.ParameterName = "@pass";
+                    pass.Value = authenticationToken.Token;
+
+                    command.Parameters.Add(user);
+                    command.Parameters.Add(pass);
+
+                    var reader = command.ExecuteReader();
+                    reader.Read();
+                    string pid = (string)reader.GetValue(0);
+                    bool auth = (bool)reader.GetValue(1);
+
+                    return auth;
+
+                }
+            }
+
         }
 
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
