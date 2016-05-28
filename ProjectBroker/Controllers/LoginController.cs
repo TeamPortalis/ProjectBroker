@@ -10,13 +10,16 @@ namespace ProjectBroker.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+
         public ActionResult Index()
         {
             if(Session["UName"] != null)
             {
                 return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
             }
-            return View();
+            if (Session["UNameTemp"] != null)
+                Session["UNameTemp"] = null;
+             return View();
         }
 
         [HttpPost]
@@ -31,6 +34,8 @@ namespace ProjectBroker.Controllers
             {
                 if (remember_me)
                     Session["UName"] = user;
+                else
+                    Session["UNameTemp"] = user;
                 return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
             }else
             {
