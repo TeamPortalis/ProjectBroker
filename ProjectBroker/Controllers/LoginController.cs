@@ -30,19 +30,21 @@ namespace ProjectBroker.Controllers
             if (result)
             {
                 FormsAuthentication.SetAuthCookie(user, remember_me);
-                return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
+                return Redirect(Url.Action("Index", "Main"));
             }else
             {
-                return View("Index");
+                FormsAuthentication.RedirectToLoginPage();
+                return null;
             }
         }
 
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Logout(string urlToRedirectTo)
         {
             FormsAuthentication.SignOut();
-            return Redirect()
+            return View("Logout");
         }
     }
 }
