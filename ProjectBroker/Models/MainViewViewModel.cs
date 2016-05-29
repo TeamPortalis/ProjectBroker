@@ -13,7 +13,6 @@ namespace ProjectBroker.Models
 
         public string ActiveUser { get; set; }
         public IEnumerable<pr_project> Projects { get; set; }
-
-
+       
     }
 }

@@ -42,13 +42,7 @@ namespace ProjectBroker.Controllers
         public ActionResult Logout(string urlToRedirectTo)
         {
             FormsAuthentication.SignOut();
-            if (Url.IsLocalUrl(urlToRedirectTo))
-            {
-                return Redirect(urlToRedirectTo);
-            } else
-            {
-                return Redirect(Url.Action(actionName: "Index", controllerName: "Main"));
-            }
+            return Redirect()
         }
     }
 }

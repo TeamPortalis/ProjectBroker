@@ -16,6 +16,7 @@ Tile Template
     ViewBag.Title = "Home";
 }
 
+<span id="logoutHelper"></span>
 <div class="panel" style="width: 25%; height: 88%; background-color: #343434; float:left;">
     <div class="heading" style="border-right: inset #007aa8;">
         <span class="mif-user"></span>
@@ -31,7 +32,7 @@ Tile Template
             <p>E-Mail: <span style="color: #00a1dd;">some@email.thing@*@Session["EMail"].ToString()*@</span></p>
             <br />
             <br />
-            <button class="button" onclick="logout();">Logout</button>
+            <button class="button" onclick="OnlogoutButton();">Logout</button>
             <button class="button">New Project</button>
         </div>
     </div>
@@ -141,6 +142,8 @@ Tile Template
         }
     }
 
+    
+
     function OnFind() {
         document.getElementById("rec_panel").style.visibility = "hidden";
         document.getElementById("cur_panel").style.height = "92%";
@@ -148,3 +151,21 @@ Tile Template
     }
 </script>
 
+<script>
+    function OnlogoutButton() {
+        console.log("Clicked me");
+          var form = document.createElement("FORM");
+          form.action = "@Url.Action("Logout", "Login")";
+          form.method = "POST";
+
+          var hid = document.createElement("INPUT");
+          hid.type = "hidden";
+          hid.name = "urlToRedirectTo";
+          hid.value = "@Url.Action("Index", "Main")"
+        form.appendChild(hid);
+
+        var helper = document.getElementById("logoutHelper");
+        helper.appendChild(form);
+          form.submit();
+      }
+</script>

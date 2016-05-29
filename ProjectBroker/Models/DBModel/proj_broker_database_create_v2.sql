@@ -5,8 +5,7 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.p_person(
 	p_ID VARCHAR(10) NOT NULL PRIMARY KEY,
 	p_fName VARCHAR(50) NOT NULL,
 	p_lName VARCHAR(50) NOT NULL,
-	p_email VARCHAR(50) NOT NULL,		-- This is okay
-	p_password VARCHAR(50) NOT NULL -- This is a BIG TABOO in DB Engineering, very unsecure way of handling passwords
+	p_email VARCHAR(50) NOT NULL		-- This is okay
 );
 
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.d_department(
@@ -53,7 +52,7 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.pr_project(
 	pr_ID VARCHAR(10) NOT NULL PRIMARY KEY ,
 	pr_name VARCHAR(50) NOT NULL ,
 	pr_wiki VARCHAR(500) NOT NULL ,
-	pr_image VARCHAR(500) NULL, -- added image for project site since it is necessary.
+	pr_image BYTEA NULL, -- added image for project site since it is necessary.
 	pr_t_ID VARCHAR(10) NOT NULL ,
 	pr_pms_ID VARCHAR(10) NOT NULL ,
 	pr_phs_ID VARCHAR(10) NOT NULL ,
@@ -145,9 +144,11 @@ DECLARE
 	intRowCount INT;
 BEGIN
 	DROP TABLE IF EXISTS  res1;
-	CREATE TEMPORARY TABLE res1 ON COMMIT DROP AS SELECT rel.lpr_l_login AS lid, rel.lpr_p_person AS pid  FROM projectbrokerschema.lpr_login_person_relation AS rel LIMIT 1;
-	lid := (SELECT res.lid FROM res1 AS res LIMIT 1);
-	pid := (SELECT res.pid FROM res1 AS res LIMIT 1);
+	CREATE TEMPORARY TABLE res1 ON COMMIT DROP AS
+		SELECT rel.lpr_l_login AS lid, rel.lpr_p_person AS pid  FROM projectbrokerschema.lpr_login_person_relation AS rel
+		WHERE rel.lpr_username = username;
+	lid := (SELECT res.lid FROM res1 AS res);
+	pid := (SELECT res.pid FROM res1 AS res);
 
 	salt := (SELECT l.l_salt FROM projectbrokerschema.l_login_info AS l WHERE L.l_id = lid LIMIT 1);
 
