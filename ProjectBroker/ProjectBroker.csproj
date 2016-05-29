@@ -152,7 +152,9 @@
     <Content Include="Scripts\metro.js" />
     <Content Include="Scripts\metro.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
@@ -210,10 +212,11 @@
     <Compile Include="Models\DBModel\t_teacher.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StandaloneAuthParams.cs" />
-    <Compile Include="Models\StandaloneLoginManager.cs" />
-    <Compile Include="Models\MockupManger.cs" />
-    <Compile Include="Models\LoginManagerDefinitions.cs" />
+    <Compile Include="Models\MainViewViewModel.cs" />
+    <Compile Include="Models\Login\StandaloneAuthParams.cs" />
+    <Compile Include="Models\Login\StandaloneLoginManager.cs" />
+    <Compile Include="Models\Login\MockupManger.cs" />
+    <Compile Include="Models\Login\LoginManagerDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

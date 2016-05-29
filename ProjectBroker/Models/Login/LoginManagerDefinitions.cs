@@ -13,7 +13,7 @@ namespace ProjectBroker.Models
 
     public interface IAuthorizeToken
     {
-        EntityType EntityType {get;}
+        EntityRescritctionType EntityType {get;}
         string Username { get; }
     }
 
@@ -29,7 +29,7 @@ namespace ProjectBroker.Models
         USER_PASS, TOKEN
     }
     
-    public enum EntityType: long
+    public enum EntityRescritctionType: long
     {
         TEACHER = 1, STUDENT = 2, ADMIN = 4
     }
@@ -37,5 +37,10 @@ namespace ProjectBroker.Models
     public interface IAuthTokenFactory<TInput>
     {
         IAuthToken CreateAuthToken(TInput authParams);
+    }
+
+    public interface IAutorizeTokenFactory<TInput>
+    {
+        IAuthorizeToken CreateAuthorizeToken(TInput authorizationParam);
     }
 }

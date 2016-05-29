@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace ProjectBroker.Models
 {
-    public class StandaloneLoginManage : ILoginManager, IAuthTokenFactory<StandaloneAuthParams>
+    public class StandaloneLoginManage : ILoginManager, IAuthTokenFactory<StandaloneAuthParams>, IAutorizeTokenFactory<StandaloneAuthTokenParams>
     {
 
 
@@ -50,19 +50,33 @@ namespace ProjectBroker.Models
 
         public bool authorize(IAuthorizeToken token)
         {
-            throw new NotImplementedException();
+
+            var db = DBManager.db;
+
         }
 
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
         {
-             if(authParams.Type == AuthenticationType.USER_PASS)
+            if (authParams.Type == AuthenticationType.USER_PASS)
             {
                 return new InternalAuthToken(authParams.Username, authParams.Password, AuthenticationType.USER_PASS);
-            } else
+            }
+            else
             {
                 return new InternalAuthToken(authParams.Username, authParams.AuthToken, AuthenticationType.TOKEN);
             }
         }
+
+        public IAuthorizeToken CreateAuthorizeToken(StandaloneAuthTokenParams authorizationParam)
+        {
+            return new InternalAuthorizationToken(authorizationParam.Type, authorizationParam.Username);
+        }
+
+
+
+        /// <summary>
+        /// Authorization Token for Login Manager
+        /// </summary>
 
         private class InternalAuthToken : IAuthToken
         {
@@ -90,5 +104,50 @@ namespace ProjectBroker.Models
                 get; private set;
             }
         }
+
+
+        /// <summary>
+        /// Internal Representation for AuthorizationToken. 
+        /// </summary>
+        internal class InternalAuthorizationToken : IAuthorizeToken
+        {
+            private EntityRescritctionType entityType;
+            private string username;
+
+            public InternalAuthorizationToken(EntityRescritctionType _entityType, string _username)
+            {
+                entityType = _entityType;
+                username = _username;
+            }
+
+
+            public EntityRescritctionType EntityType
+            {
+                get
+                {
+                    return entityType;   
+                }
+            }
+
+            public string Username
+            {
+                get
+                {
+                    return username;
+                }
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// AuthorizationToken parameters.
+    /// </summary>
+    public class StandaloneAuthTokenParams
+    {
+
+        public string Username { get; set; }
+        public EntityRescritctionType Type { get; set; }
+
     }
 }
