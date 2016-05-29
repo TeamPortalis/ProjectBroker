@@ -53,6 +53,22 @@ namespace ProjectBroker.Models
 
             var db = DBManager.db;
 
+            var personInQuestion = db.lpr_login_person_relation.Where(x => x.lpr_username == token.Username)
+                .Select(x => x.p_person).FirstOrDefault();
+
+            if (personInQuestion == null)
+                return false; 
+
+            if(token.EntityType == EntityRescritctionType.STUDENT && personInQuestion.s_student != null)
+            {
+                return true;
+            }
+
+            if (token.EntityType == EntityRescritctionType.TEACHER && personInQuestion.t_teacher != null)
+                return true;
+
+            return false;
+
         }
 
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
