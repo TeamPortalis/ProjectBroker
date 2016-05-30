@@ -44,7 +44,7 @@ namespace ProjectBroker.Controllers
         public ActionResult Logout(string urlToRedirectTo)
         {
             FormsAuthentication.SignOut();
-            return View("Logout");
+            return Redirect(Url.Action("Index", "Main"));
         }
     }
 }

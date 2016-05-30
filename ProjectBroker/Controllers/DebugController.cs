@@ -27,8 +27,7 @@ namespace ProjectBroker.Controllers
                 p_id = "ABC1231230",
                 p_fname = "Tester",
                 p_lname = "McTest",
-                p_email = "test@test.de",
-                p_password = "NoSuchThing",
+                p_email = "test@test.de"
             };
 
             db.p_person.Add(p);

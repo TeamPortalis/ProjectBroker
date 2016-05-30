@@ -37,7 +37,6 @@
           <Property Name="p_fname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="p_lname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="p_email" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="p_password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="phs_projhostingenv">
           <Key>
@@ -59,8 +58,8 @@
           </Key>
           <Property Name="pr_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="pr_wiki" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="pr_image" Type="varchar" MaxLength="500" />
+          <Property Name="pr_desc" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="pr_image" Type="bytea" />
           <Property Name="pr_t_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_pms_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_phs_id" Type="varchar" MaxLength="10" Nullable="false" />
@@ -349,7 +348,6 @@
           <Property Name="p_fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="p_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="lpr_login_person_relation" Relationship="Self.lpr_login_person_relation_lpr_p_person_fkey" FromRole="p_person" ToRole="lpr_login_person_relation" />
           <NavigationProperty Name="s_student" Relationship="Self.s_student_s_nr_fkey" FromRole="p_person" ToRole="s_student" />
           <NavigationProperty Name="t_teacher" Relationship="Self.t_teacher_t_id_fkey" FromRole="p_person" ToRole="t_teacher" />
@@ -376,8 +374,8 @@
           </Key>
           <Property Name="pr_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pr_wiki" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pr_image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="pr_desc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pr_image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
           <Property Name="pr_t_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
@@ -638,7 +636,6 @@
                 <ScalarProperty Name="p_fname" ColumnName="p_fname" />
                 <ScalarProperty Name="p_lname" ColumnName="p_lname" />
                 <ScalarProperty Name="p_email" ColumnName="p_email" />
-                <ScalarProperty Name="p_password" ColumnName="p_password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -663,7 +660,7 @@
               <MappingFragment StoreEntitySet="pr_project">
                 <ScalarProperty Name="pr_id" ColumnName="pr_id" />
                 <ScalarProperty Name="pr_name" ColumnName="pr_name" />
-                <ScalarProperty Name="pr_wiki" ColumnName="pr_wiki" />
+                <ScalarProperty Name="pr_desc" ColumnName="pr_desc" />
                 <ScalarProperty Name="pr_image" ColumnName="pr_image" />
                 <ScalarProperty Name="pr_t_id" ColumnName="pr_t_id" />
                 <ScalarProperty Name="pr_pms_id" ColumnName="pr_pms_id" />

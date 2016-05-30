@@ -24,7 +24,6 @@ namespace ProjectBroker.Models.DBModel
         public string p_fname { get; set; }
         public string p_lname { get; set; }
         public string p_email { get; set; }
-        public string p_password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lpr_login_person_relation> lpr_login_person_relation { get; set; }
