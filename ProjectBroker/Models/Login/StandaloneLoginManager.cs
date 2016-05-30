@@ -38,6 +38,10 @@ namespace ProjectBroker.Models
 
                     var reader = command.ExecuteReader();
                     reader.Read();
+
+                    if (reader.HasRows == false)
+                        return false;
+
                     string pid = (string)reader.GetValue(0);
                     bool auth = (bool)reader.GetValue(1);
 

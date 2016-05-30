@@ -1,3 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 DROP SCHEMA IF EXISTS projectbrokerschema CASCADE;
 CREATE SCHEMA projectbrokerschema;
 
