@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS projectbrokerschema.stm_student_in_team(
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.pr_project(
 	pr_ID VARCHAR(10) NOT NULL PRIMARY KEY ,
 	pr_name VARCHAR(50) NOT NULL ,
-	pr_wiki VARCHAR(500) NOT NULL ,
+	pr_desc VARCHAR(500) NOT NULL ,
 	pr_image BYTEA NULL, -- added image for project site since it is necessary.
 	pr_t_ID VARCHAR(10) NOT NULL ,
 	pr_pms_ID VARCHAR(10) NOT NULL ,
