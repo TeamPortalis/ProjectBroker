@@ -57,7 +57,7 @@ INSERT INTO projectbrokerschema.stm_student_in_team (stm_s_id, stm_tm_id) VALUES
   ('LEGAL22222', 'TM3'),
   ('FORTHEWIN1', 'TM3');
 
-INSERT INTO projectbrokerschema.pr_project (pr_id, pr_name, pr_wiki, pr_image, pr_t_id, pr_pms_id, pr_phs_id, pr_tm_id)
+INSERT INTO projectbrokerschema.pr_project (pr_id, pr_name, pr_desc, pr_image, pr_t_id, pr_pms_id, pr_phs_id, pr_tm_id)
     VALUES
       ('PID1', 'Project Broker', 'Wiki for simple things', NULL, '23221AB333', 'PMS1', 'PHV1', 'TM1'),
       ('PID2', 'Project Broker 2', 'Wiki for simple things 2', NULL, '23221AB333', 'PMS1', 'PHV1', 'TM2'),
