@@ -157,6 +157,9 @@ Tile Template
         var charm = $("#bottomCharm").data("charm");
         if (charm.element.data("opened") === true) {
             charm.close();
+            document.getElementById("rec_panel").style.visibility = "visible";
+            document.getElementById("cur_panel").style.height = "52%";
+            document.getElementById("cur_panel_title").textContent = "Current Projects";
         }
         else {
             charm.open();

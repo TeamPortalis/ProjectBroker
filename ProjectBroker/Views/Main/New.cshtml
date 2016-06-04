@@ -3,11 +3,59 @@
     ViewBag.Title = "New Project";
 }
 
-<div class="wizard2" data-role="wizard2" 
-     data-button-labels='{"help": "?", "prev": "<span class=\"mif-arrow-left\"></span>", "next": "<span class=\"mif-arrow-right\"></span>", "finish": "<span class=\"mif-checkmark\"></span>"}'>
-    <div class="step">
+<div class="wizard2" data-role="wizard2" data-button-labels="{help: ?, prev:<span class='mif-arrow-left'></span>;, next: <span class='mif-arrow-right'></span>, finish: <span class='mif-checkmark'></span>}"
+    style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();">
+    <div class="step active">
         <div class="step-content">
-
+            Enter project-name:<br />
+            <div class="input-control text" style="width: 100%;">
+                <input type="text" placeholder="Project-name ..." />
+            </div><br />
+            Enter project-description:<br />
+            <div class="input-control textarea" style="width: 100%;">
+                <textarea style="resize: none;"></textarea>
+            </div>
         </div>
     </div>
+    <div class="step next">
+        <div class="step-content">
+            Choose your file-hosting environment:<br />
+            <div class="input-control select">
+                <select>
+                    <option selected>GitLab</option>
+                    <option>GitHub</option>
+                    <option>TFS</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="step next">
+        <div class="step-content">
+            Choose your project-management environment:<br />
+            <div class="input-control select">
+                <select>
+                    <option>RedMine</option>
+                    <option>Jira</option>
+                    <option>Microsoft Project</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="action-bar next">
+        <button class="button cycle-button medium-button wiz-btn-help place-left">?</button>
+        <button class="button cycle-button medium-button wiz-btn-finish place-right" style="display: none;"><span class="mif-checkmark"></span></button>
+        <button class="button cycle-button medium-button wiz-btn-next place-right"><span class="mif-arrow-right"></span></button>
+        <button class="button cycle-button medium-button wiz-btn-prev place-right" style="display: none;"><span class="mif-arrow-left"></span></button>
+    </div>
 </div>
+
+<script>
+    function helpNotif()
+    {
+        $.Notify({
+            caption: 'Help',
+            content: 'With this wizard you can create a new project! Please follow the instructions described on the current step and click on next, until you are at the last step and click finish once done.',
+            keepOpen: true
+        });
+    }
+</script>

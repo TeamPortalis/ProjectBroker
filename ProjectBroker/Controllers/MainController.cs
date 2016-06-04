@@ -29,5 +29,11 @@ namespace ProjectBroker.Controllers
 
             return View(vm );
         }
+
+        // GET: New
+        public ActionResult New()
+        {
+            return View();
+        }
     }
 }
