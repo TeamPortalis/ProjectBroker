@@ -11,7 +11,9 @@ Tile Template
     </div>
 </div>
 *@
+
 @model ProjectBroker.Models.ViewModels.MainViewViewModel
+
 @{
     ViewBag.Title = "Home";
 }
@@ -52,7 +54,14 @@ Tile Template
                             <span class="mif-home"></span>
                         </div>
                         <div class="slide-over op-crimson text-small padding10">
-                            @p.pr_name - @p.pr_desc
+                            <b>@p.pr_name</b> - 
+                            @if(p.pr_desc.Length > 50)
+                            {
+                                @p.pr_desc.Substring(0, 50)@:...
+                            } else
+                            {
+                                @p.pr_desc
+                            }
                         </div>
                     </div>
                 </div>
