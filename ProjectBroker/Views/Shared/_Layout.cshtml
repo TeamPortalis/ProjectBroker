@@ -10,12 +10,19 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body style="background-color: #626262; width:100%;">
-    @if (ViewBag.Title.Contains("Home"))
+    @if (!ViewBag.Title.Contains("Login") && !ViewBag.Title.Contains("New"))
     {
         <div style="background-color: #9e9e9e; width: 100%; height:4%; float:left;">
             <ul class="breadcrumbs2" style="height:100%;">
                 <li><a href='@Url.Action("Index", "Main")'><span class="icon mif-home" /> Project Broker</a></li>
-                <li><a href="javascript:OpenCharm()">Find</a></li>
+                @if (ViewBag.Title.Contains("Home"))
+                {
+                    <li><a href="javascript:OpenCharm()">Find</a></li>
+                }
+                else
+                {
+                    <li><a href='@Url.Action("Index", "Main")'>Find</a></li>
+                }
                 <li><a href='@Url.Action("Index", "Admin")'>Admin</a></li>
                 <li><a href='@Url.Action("Index", "Settings")'>Settings</a></li>
             </ul>

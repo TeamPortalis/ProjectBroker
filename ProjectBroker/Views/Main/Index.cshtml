@@ -1,17 +1,4 @@
-﻿@*
-Tile Template
-<div class="tile">
-    <div class="tile-content slide-up">
-        <div class="slide">
-            <span class="mif-home"></span>
-        </div>
-        <div class="slide-over op-crimson text-small padding10">
-            A home-project for two.
-        </div>
-    </div>
-</div>
-*@
-
+﻿
 @{
     ViewBag.Title = "Home";
 }
@@ -130,11 +117,23 @@ Tile Template
     </label>
 </div>
 
+<div id="openModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <h2>Modal Box</h2>
+        <p>This is a sample modal box that can be created using the powers of CSS3.</p>
+        <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+    </div>
+</div>
+
 <script>
     function OpenCharm() {
         var charm = $("#bottomCharm").data("charm");
         if (charm.element.data("opened") === true) {
             charm.close();
+            document.getElementById("rec_panel").style.visibility = "visible";
+            document.getElementById("cur_panel").style.height = "52%";
+            document.getElementById("cur_panel_title").textContent = "Current Projects";
         }
         else {
             charm.open();
