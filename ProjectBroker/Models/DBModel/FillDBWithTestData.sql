@@ -13,12 +13,14 @@ INSERT INTO projectbrokerschema.p_person (p_id, p_fname, p_lname, p_email)
       ('4ACF932ANF', 'Andra', 'Whatever', 'testmail3@mail.com'),
       ('LEGAL22222', 'Whynot', 'Wieso', 'testmail4@mail.com'),
       ('FORTHEWIN1', 'Lala', 'Wieso', 'testmail5@mail.com'),
-      ('WHYNOT1234', 'Nadiene', 'Westerwald', 'testmail6@mail.com');
+      ('WHYNOT1234', 'Nadiene', 'Westerwald', 'testmail6@mail.com'),
+      ('THE0000001', 'Moritz', 'Brandstaetter', 'testy@testmail.test');
 
 INSERT INTO projectbrokerschema.t_teacher (t_id)
     VALUES
       ('23221AB333'),
-      ('WHYNOT1234');
+      ('WHYNOT1234'),
+      ('THE0000001');
 
 
 
@@ -37,6 +39,7 @@ SELECT projectbrokerschema.uf_create_new_user('user3', 'user3', '4ACF932ANF');
 SELECT projectbrokerschema.uf_create_new_user('user4', 'user4', 'LEGAL22222');
 SELECT projectbrokerschema.uf_create_new_user('user5', 'user5', 'FORTHEWIN1');
 SELECT projectbrokerschema.uf_create_new_user('user6', 'user6', 'WHYNOT1234');
+SELECT projectbrokerschema.uf_create_new_user('brandy', 'killerpwd', 'THE0000001');
 
 INSERT INTO projectbrokerschema.phs_projhostingenv(phs_id, phs_name)
     VALUES
