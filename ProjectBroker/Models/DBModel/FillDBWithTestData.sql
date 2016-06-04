@@ -67,3 +67,7 @@ INSERT INTO projectbrokerschema.pr_project (pr_id, pr_name, pr_desc, pr_image, p
       ('PID3', 'Project Broker 3', 'Wiki for simple things 3', NULL, '23221AB333', 'PMS1', 'PHV1', 'TM3');
 
 
+
+
+
+SELECT gen_salt('bf', 8);

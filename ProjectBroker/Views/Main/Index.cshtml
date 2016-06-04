@@ -11,7 +11,7 @@ Tile Template
     </div>
 </div>
 *@
-
+@model ProjectBroker.Models.ViewModels.MainViewViewModel
 @{
     ViewBag.Title = "Home";
 }
@@ -28,8 +28,8 @@ Tile Template
             <img src="nolink" style="width:50%; height:100%; margin-left:25%;" id="usr_pb"/>
         </div>
         <div id="user-lower" style="width:100%; height:50%; vertical-align:bottom;">
-            <p>User: <span style="color: #00a1dd;">User@*@Session["UName"].ToString()*@</span></p>
-            <p>E-Mail: <span style="color: #00a1dd;">some@email.thing@*@Session["EMail"].ToString()*@</span></p>
+            <p>User: <span style="color: #00a1dd;">@Model.ActiveUser.p_fname @Model.ActiveUser.p_lname</span></p>
+            <p>E-Mail: <span style="color: #00a1dd;">@Model.ActiveUser.p_email</span></p>
             <br />
             <br />
             <button class="button" onclick="OnlogoutButton();">Logout</button>
@@ -42,36 +42,57 @@ Tile Template
         <span class="title" id="cur_panel_title">Current Projects</span>
     </div>
     <div class="content" style="border-left: inset #121212;">
-        <div class="tile">
-            <div class="tile-content slide-up">
-                <div class="slide">
-                    <span class="mif-home"></span>
+        @if (Model.CurrentProjects.Count() > 0)
+        {
+            foreach (var p in Model.CurrentProjects)
+            {
+                <div class="tile">
+                    <div class="tile-content slide-up">
+                        <div class="slide">
+                            <span class="mif-home"></span>
+                        </div>
+                        <div class="slide-over op-crimson text-small padding10">
+                            @p.pr_name - @p.pr_desc
+                        </div>
+                    </div>
                 </div>
-                <div class="slide-over op-crimson text-small padding10">
-                    A home-project for two.
+            }
+        }
+        else
+        {
+            <div class="tile">
+                <div class="tile-content slide-up">
+                    <div class="slide">
+                        <span class="mif-home"></span>
+                    </div>
+                    <div class="slide-over op-crimson text-small padding10">
+                        A home-project for two.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="tile">
-            <div class="tile-content slide-up">
-                <div class="slide">
-                    <span class="mif-home"></span>
-                </div>
-                <div class="slide-over op-crimson text-small padding10">
-                    Another home-project.
-                </div>
-            </div>
-        </div>
-        <div class="tile">
-            <div class="tile-content slide-up">
-                <div class="slide">
-                    <span class="mif-home"></span>
-                </div>
-                <div class="slide-over op-crimson text-small padding10">
-                    Yet another one ...
+            <div class="tile">
+                <div class="tile-content slide-up">
+                    <div class="slide">
+                        <span class="mif-home"></span>
+                    </div>
+                    <div class="slide-over op-crimson text-small padding10">
+                        Another home-project.
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="tile">
+                <div class="tile-content slide-up">
+                    <div class="slide">
+                        <span class="mif-home"></span>
+                    </div>
+                    <div class="slide-over op-crimson text-small padding10">
+                        Yet another one ...
+                    </div>
+                </div>
+            </div>  
+        }
+
+        
     </div>
 </div>
 

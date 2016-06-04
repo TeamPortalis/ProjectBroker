@@ -182,7 +182,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,7 +232,9 @@
     <Compile Include="Models\DBModel\t_teacher.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MainViewViewModel.cs" />
+    <Compile Include="Models\Login\LoginUtils.cs" />
+    <Compile Include="Models\Projects\ProjectManager.cs" />
+    <Compile Include="Models\ViewModels\MainViewViewModel.cs" />
     <Compile Include="Models\Login\StandaloneAuthParams.cs" />
     <Compile Include="Models\Login\StandaloneLoginManager.cs" />
     <Compile Include="Models\Login\MockupManger.cs" />
@@ -257,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Projects\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
