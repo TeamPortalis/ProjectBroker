@@ -1,19 +1,28 @@
-﻿
+﻿@model ProjectBroker.Models.DBModel.pr_project
 @{
     ViewBag.Title = "New Project";
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
 <div class="wizard2" data-role="wizard2" data-button-labels="{help: ?, prev:<span class='mif-arrow-left'></span>;, next: <span class='mif-arrow-right'></span>, finish: <span class='mif-checkmark'></span>}"
     style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();">
+
     <div class="step active">
         <div class="step-content">
             Enter project-name:<br />
             <div class="input-control text" style="width: 100%;">
-                <input type="text" placeholder="Project-name ..." />
+                <input name="pr_name_get" type="text" placeholder="Project-name ..." />
+                @*@Html.EditorFor(model => model.pr_name)*@
+                @*@Html.ValidationMessageFor(model => model.pr_name);*@
             </div><br />
             Enter project-description:<br />
             <div class="input-control textarea" style="width: 100%;">
-                <textarea style="resize: none;"></textarea>
+                <textarea name="pr_desc_get" style="resize: none;">
+                @*@Html.EditorFor(model => model.pr_desc)*@
+                </textarea>
+                @*@Html.ValidationMessageFor(model => model.pr_desc);*@
             </div>
         </div>
     </div>
@@ -21,7 +30,7 @@
         <div class="step-content">
             Choose your file-hosting environment:<br />
             <div class="input-control select">
-                <select>
+                <select name="pr_phs_string_get">
                     <option selected>GitLab</option>
                     <option>GitHub</option>
                     <option>TFS</option>
@@ -33,7 +42,7 @@
         <div class="step-content">
             Choose your project-management environment:<br />
             <div class="input-control select">
-                <select>
+                <select name="pr_pms_string_get">
                     <option>RedMine</option>
                     <option>Jira</option>
                     <option>Microsoft Project</option>
@@ -43,12 +52,13 @@
     </div>
     <div class="action-bar next">
         <button class="button cycle-button medium-button wiz-btn-help place-left">?</button>
-        <button class="button cycle-button medium-button wiz-btn-finish place-right" style="display: none;"><span class="mif-checkmark"></span></button>
+        <button class="button cycle-button medium-button wiz-btn-finish place-right" style="display: none;" type="submit"><span class="mif-checkmark"></span></button>
         <button class="button cycle-button medium-button wiz-btn-next place-right"><span class="mif-arrow-right"></span></button>
         <button class="button cycle-button medium-button wiz-btn-prev place-right" style="display: none;"><span class="mif-arrow-left"></span></button>
     </div>
-</div>
 
+</div>
+}
 <script>
     function helpNotif()
     {

@@ -18,5 +18,17 @@ namespace ProjectBroker.Models.Projects
             return result.ToList();
         }
 
+        public static string GetNextProjectID()
+        {
+            var projectIDs = (from p in DBManager.db.pr_project
+                            orderby p.pr_id
+                            select p.pr_id);
+            var projectID = projectIDs.LastOrDefault();
+            var suffix = projectID.Substring(2);
+            var num = Int32.Parse(suffix);
+            var retstr = "PID" + (num++);
+            return retstr;
+        }
+
     }
 }

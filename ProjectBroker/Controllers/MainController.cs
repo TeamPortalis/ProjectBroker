@@ -35,5 +35,26 @@ namespace ProjectBroker.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult New(string pr_name_get, string pr_desc_get, string pr_pms_string_get, string pr_phs_string_get)
+        {
+            //Add validation here or in view with metadata
+            pr_project p = new pr_project()
+            {
+                pr_name = pr_name_get,
+                pr_desc = pr_desc_get,
+                pr_pms_id = pr_pms_string_get,
+                pr_phs_id = pr_phs_string_get,
+                //pr_t_id = "",
+                //pr_tm_id = "",
+                pr_id = ProjectManager.GetNextProjectID()
+            };
+
+            DBManager.db.pr_project.Add(p);
+            DBManager.db.SaveChanges();
+            return View();
+    }
     }
 }
