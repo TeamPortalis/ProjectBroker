@@ -35,8 +35,7 @@ Tile Template
             <br />
             <br />
             <button class="button" onclick="OnlogoutButton();">Logout</button>
-            <button class="button">
-            @Html.ActionLink("New Project","new")
+            <button class="button" onclick="NewProject();">
             </button>
         </div>
     </div>
@@ -202,5 +201,9 @@ Tile Template
         var helper = document.getElementById("logoutHelper");
         helper.appendChild(form);
           form.submit();
-      }
+    }
+
+    function NewProject() {
+        window.location = "@Url.Action("New", "Main")";
+    }
 </script>

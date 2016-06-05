@@ -2,27 +2,22 @@
 @{
     ViewBag.Title = "New Project";
 }
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+
+
 
 <div class="wizard2" data-role="wizard2" data-button-labels="{help: ?, prev:<span class='mif-arrow-left'></span>;, next: <span class='mif-arrow-right'></span>, finish: <span class='mif-checkmark'></span>}"
-    style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();">
+    style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();" data-on-finish="submitNewProject();">
 
     <div class="step active">
         <div class="step-content">
             Enter project-name:<br />
             <div class="input-control text" style="width: 100%;">
-                <input name="pr_name_get" type="text" placeholder="Project-name ..." />
-                @*@Html.EditorFor(model => model.pr_name)*@
-                @*@Html.ValidationMessageFor(model => model.pr_name);*@
+                <input id="pNameTF" type="text" placeholder="Project-name ..." />
             </div><br />
             Enter project-description:<br />
             <div class="input-control textarea" style="width: 100%;">
-                <textarea name="pr_desc_get" style="resize: none;">
-                @*@Html.EditorFor(model => model.pr_desc)*@
+                <textarea id="pDescTF" style="resize: none;">
                 </textarea>
-                @*@Html.ValidationMessageFor(model => model.pr_desc);*@
             </div>
         </div>
     </div>
@@ -52,13 +47,19 @@
     </div>
     <div class="action-bar next">
         <button class="button cycle-button medium-button wiz-btn-help place-left">?</button>
-        <button class="button cycle-button medium-button wiz-btn-finish place-right" style="display: none;" type="submit"><span class="mif-checkmark"></span></button>
+        <button class="button cycle-button medium-button wiz-btn-finish place-right" style="display: none;" onclick="submitNewProject();"><span class="mif-checkmark"></span></button>
         <button class="button cycle-button medium-button wiz-btn-next place-right"><span class="mif-arrow-right"></span></button>
         <button class="button cycle-button medium-button wiz-btn-prev place-right" style="display: none;"><span class="mif-arrow-left"></span></button>
     </div>
 
 </div>
+
+@using (Html.BeginForm("New", "Main", FormMethod.Post, new { id = "formHelper" }))
+{
+    @Html.AntiForgeryToken()
 }
+
+
 <script>
     function helpNotif()
     {
@@ -68,4 +69,28 @@
             keepOpen: true
         });
     }
+
+    function submitNewProject() {
+
+        var projectName = document.createElement("INPUT");
+        projectName.setAttribute("type", "hidden");
+        projectName.setAttribute("name", "pr_name_get");
+        var pNameValue = document.getElementById("pNameTF").value;
+        projectName.setAttribute("value", pNameValue);
+
+        var projectDesc = document.createElement("INPUT");
+        projectDesc.setAttribute("type", "hidden");
+        projectDesc.setAttribute("name", "pr_desc_get");
+        var pDescValue = document.getElementById("pDescTF").value;
+        projectDesc.setAttribute("value", pDescValue);
+
+        var form = document.getElementById("formHelper");
+        form.appendChild(projectName);
+        form.appendChild(projectDesc);
+
+        form.submit();
+
+
+    }
+    
 </script>

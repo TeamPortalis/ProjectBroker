@@ -22,11 +22,11 @@ namespace ProjectBroker.Models.Projects
         {
             var projectIDs = (from p in DBManager.db.pr_project
                             orderby p.pr_id
-                            select p.pr_id);
-            var projectID = projectIDs.LastOrDefault();
-            var suffix = projectID.Substring(2);
+                            select p.pr_id).ToList();
+            var projectID = projectIDs[projectIDs.Count - 1];
+            var suffix = projectID.Substring(3);
             var num = Int32.Parse(suffix);
-            var retstr = "PID" + (num++);
+            var retstr = "PID" + (num+1);
             return retstr;
         }
 
