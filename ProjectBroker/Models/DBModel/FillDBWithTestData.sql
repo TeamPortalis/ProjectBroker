@@ -33,13 +33,13 @@ INSERT INTO projectbrokerschema.s_student (s_nr, s_address, s_dob, s_d_departmen
       ('FORTHEWIN1', 'Addresse 4', '1998-11-19', 'D000000003');
 
 
-PERFORM projectbrokerschema.uf_create_new_user('user1', '1234', '0000000000');
-PERFORM projectbrokerschema.uf_create_new_user('user2', '5678', '23221AB333');
-PERFORM projectbrokerschema.uf_create_new_user('user3', 'user3', '4ACF932ANF');
-PERFORM projectbrokerschema.uf_create_new_user('user4', 'user4', 'LEGAL22222');
-PERFORM projectbrokerschema.uf_create_new_user('user5', 'user5', 'FORTHEWIN1');
-PERFORM projectbrokerschema.uf_create_new_user('user6', 'user6', 'WHYNOT1234');
-PERFORM projectbrokerschema.uf_create_new_user('brandy', 'killerpwd', 'THE0000001');
+SELECT projectbrokerschema.uf_create_new_user('user1', '1234', '0000000000');
+SELECT projectbrokerschema.uf_create_new_user('user2', '5678', '23221AB333');
+SELECT projectbrokerschema.uf_create_new_user('user3', 'user3', '4ACF932ANF');
+SELECT projectbrokerschema.uf_create_new_user('user4', 'user4', 'LEGAL22222');
+SELECT projectbrokerschema.uf_create_new_user('user5', 'user5', 'FORTHEWIN1');
+SELECT projectbrokerschema.uf_create_new_user('user6', 'user6', 'WHYNOT1234');
+SELECT projectbrokerschema.uf_create_new_user('brandy', 'killerpwd', 'THE0000001');
 
 INSERT INTO projectbrokerschema.phs_projhostingenv(phs_id, phs_name)
     VALUES
