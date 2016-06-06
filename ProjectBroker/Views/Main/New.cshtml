@@ -1,4 +1,4 @@
-﻿@model ProjectBroker.Models.DBModel.pr_project
+﻿@model ProjectBroker.Models.ViewModels.NewProjectViewModel
 @{
     ViewBag.Title = "New Project";
 }
@@ -25,8 +25,20 @@
         <div class="step-content">
             Choose your file-hosting environment:<br />
             <div class="input-control select">
-                <select name="pr_phs_string_get">
-                                        
+                <select id="selectPHE">
+    @foreach(var i in Model.AllProjectHostingEnvs)
+    {
+        
+        @if(Model.AllProjectHostingEnvs.First().phs_id == i.phs_id)
+        {
+            <option value="@i.phs_id" selected>@i.phs_name</option>
+        }
+        else
+        {
+            <option value="@i.phs_id" >@i.phs_name</option>
+        }
+
+    }
                 </select>
             </div>
         </div>
@@ -35,12 +47,29 @@
         <div class="step-content">
             Choose your project-management environment:<br />
             <div class="input-control select">
-                <select name="pr_pms_string_get">
-                    <option>RedMine</option>
-                    <option>Jira</option>
-                    <option>Microsoft Project</option>
+                <select id="selectPME">
+                    @foreach(var i in Model.AllProjectManagementEnvs)
+                    {
+                        if(Model.AllProjectManagementEnvs.First().pms_id == i.pms_id)
+                        {
+                            <option value="@i.pms_id" selected>@i.pms_name</option>
+                        }
+                        else
+                        {
+                            <option value="@i.pms_id">@i.pms_name</option>
+                        }
+                    }
                 </select>
             </div>
+        </div>
+    </div>
+    <div class="step next">
+        <div class="step-content">
+            <select id="teamSelectorId"></select>
+            @if(Model.AllTeams.Count() == 0)
+            {
+                <option value="$NoTeam$" selected>Create New Team</option>
+            } 
         </div>
     </div>
     <div class="action-bar next">
