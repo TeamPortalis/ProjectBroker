@@ -6,7 +6,9 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.p_person(
 	p_ID VARCHAR(10) NOT NULL PRIMARY KEY,
 	p_fName VARCHAR(50) NOT NULL,
 	p_lName VARCHAR(50) NOT NULL,
-	p_email VARCHAR(50) NOT NULL		-- This is okay
+	p_email VARCHAR(50) NOT NULL,
+	p_phoneNr VARCHAR(15) NULL,
+	p_image	TEXT NULL
 );
 
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.d_department(
@@ -17,17 +19,18 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.d_department(
 );
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.phs_projhostingenv(
 	phs_ID VARCHAR(10) NOT NULL PRIMARY KEY ,
-	phs_name VARCHAR(50) NOT NULL
+	phs_name VARCHAR(50) NOT NULL,
+	phs_desc	TEXT  NULL
 );
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.pms_projmanagementenv(
 	pms_ID VARCHAR(10) NOT NULL PRIMARY KEY ,
-	pms_name VARCHAR(50)
+	pms_name VARCHAR(50) NOT NULL,
+	pms_desc TEXT NULL
 );
 CREATE TABLE  IF NOT EXISTS projectbrokerschema.s_student(
 	s_nr VARCHAR(10) NOT NULL PRIMARY KEY ,
 	s_address VARCHAR(50) NOT NULL ,
 	s_dob DATE NOT NULL ,
-	s_phoneNr CHAR(15) NOT NULL,
 	s_d_department VARCHAR(10) NOT NULL , -- same problem with deparment, should be changed later.
 	FOREIGN KEY (s_nr) REFERENCES projectbrokerschema.p_person (p_ID) ON UPDATE  CASCADE  ON DELETE CASCADE,
 	FOREIGN KEY (s_d_department) REFERENCES projectbrokerschema.d_department(d_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -53,7 +56,7 @@ CREATE TABLE  IF NOT EXISTS projectbrokerschema.pr_project(
 	pr_ID VARCHAR(10) NOT NULL PRIMARY KEY ,
 	pr_name VARCHAR(50) NOT NULL ,
 	pr_desc VARCHAR(500) NOT NULL ,
-	pr_image BYTEA NULL, -- added image for project site since it is necessary.
+	pr_image TEXT NULL, -- added image for project site since it is necessary.
 	pr_t_ID VARCHAR(10) NOT NULL ,
 	pr_pms_ID VARCHAR(10) NOT NULL ,
 	pr_phs_ID VARCHAR(10) NOT NULL ,

@@ -25,12 +25,12 @@ INSERT INTO projectbrokerschema.t_teacher (t_id)
 
 
 
-INSERT INTO projectbrokerschema.s_student (s_nr, s_address, s_dob, s_phonenr, s_d_department)
+INSERT INTO projectbrokerschema.s_student (s_nr, s_address, s_dob, s_d_department)
     VALUES
-      ('0000000000', 'Addresse 1', '1998-11-22', '000000000000000', 'D000000000'),
-      ('4ACF932ANF', 'Addresse 2', '1998-11-21', '000000000000001', 'D000000001'),
-      ('LEGAL22222', 'Addresse 3', '1998-11-20', '000000000000002', 'D000000002'),
-      ('FORTHEWIN1', 'Addresse 4', '1998-11-19', '000000000000003', 'D000000003');
+      ('0000000000', 'Addresse 1', '1998-11-22', 'D000000000'),
+      ('4ACF932ANF', 'Addresse 2', '1998-11-21', 'D000000001'),
+      ('LEGAL22222', 'Addresse 3', '1998-11-20', 'D000000002'),
+      ('FORTHEWIN1', 'Addresse 4', '1998-11-19', 'D000000003');
 
 
 SELECT projectbrokerschema.uf_create_new_user('user1', '1234', '0000000000');

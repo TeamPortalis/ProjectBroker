@@ -15,8 +15,8 @@ namespace ProjectBroker.Models.DBModel
         public static string GenerateSalt()
         {
             byte[] saltString = new byte[72];
-            var proivder = RNGCryptoServiceProvider.Create();
-            proivder.GetBytes(saltString);
+            var provider = RNGCryptoServiceProvider.Create();
+            provider.GetBytes(saltString);
             return Convert.ToBase64String(saltString);
         }
 

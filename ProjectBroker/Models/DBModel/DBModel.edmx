@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="projectbrokerModel.Store" Provider="Npgsql" ProviderManifestToken="9.5.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="projectbrokerModel.Store" Provider="Npgsql" ProviderManifestToken="9.5.3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="d_department">
           <Key>
             <PropertyRef Name="d_id" />
@@ -37,6 +37,8 @@
           <Property Name="p_fname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="p_lname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="p_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_phonenr" Type="varchar" MaxLength="15" />
+          <Property Name="p_image" Type="text" />
         </EntityType>
         <EntityType Name="phs_projhostingenv">
           <Key>
@@ -44,13 +46,15 @@
           </Key>
           <Property Name="phs_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="phs_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phs_desc" Type="text" />
         </EntityType>
         <EntityType Name="pms_projmanagementenv">
           <Key>
             <PropertyRef Name="pms_id" />
           </Key>
           <Property Name="pms_id" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="pms_name" Type="varchar" MaxLength="50" />
+          <Property Name="pms_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pms_desc" Type="text" />
         </EntityType>
         <EntityType Name="pr_project">
           <Key>
@@ -59,7 +63,7 @@
           <Property Name="pr_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="pr_desc" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="pr_image" Type="bytea" />
+          <Property Name="pr_image" Type="text" />
           <Property Name="pr_t_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_pms_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pr_phs_id" Type="varchar" MaxLength="10" Nullable="false" />
@@ -72,7 +76,6 @@
           <Property Name="s_nr" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="s_address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="s_dob" Type="date" Nullable="false" />
-          <Property Name="s_phonenr" Type="bpchar" MaxLength="15" Nullable="false" />
           <Property Name="s_d_department" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="stm_student_in_team">
@@ -348,6 +351,8 @@
           <Property Name="p_fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="p_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_phonenr" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="p_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="lpr_login_person_relation" Relationship="Self.lpr_login_person_relation_lpr_p_person_fkey" FromRole="p_person" ToRole="lpr_login_person_relation" />
           <NavigationProperty Name="s_student" Relationship="Self.s_student_s_nr_fkey" FromRole="p_person" ToRole="s_student" />
           <NavigationProperty Name="t_teacher" Relationship="Self.t_teacher_t_id_fkey" FromRole="p_person" ToRole="t_teacher" />
@@ -358,6 +363,7 @@
           </Key>
           <Property Name="phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="phs_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phs_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_phs_id_fkey" FromRole="phs_projhostingenv" ToRole="pr_project" />
         </EntityType>
         <EntityType Name="pms_projmanagementenv">
@@ -365,7 +371,8 @@
             <PropertyRef Name="pms_id" />
           </Key>
           <Property Name="pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pms_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pms_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pms_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="pr_project" Relationship="Self.pr_project_pr_pms_id_fkey" FromRole="pms_projmanagementenv" ToRole="pr_project" />
         </EntityType>
         <EntityType Name="pr_project">
@@ -375,7 +382,7 @@
           <Property Name="pr_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_desc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pr_image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="pr_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="pr_t_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_pms_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pr_phs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
@@ -392,7 +399,6 @@
           <Property Name="s_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="s_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="s_dob" Type="DateTime" Precision="0" Nullable="false" />
-          <Property Name="s_phonenr" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="s_d_department" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="d_department" Relationship="Self.s_student_s_d_department_fkey" FromRole="s_student" ToRole="d_department" />
           <NavigationProperty Name="p_person" Relationship="Self.s_student_s_nr_fkey" FromRole="s_student" ToRole="p_person" />
@@ -636,6 +642,8 @@
                 <ScalarProperty Name="p_fname" ColumnName="p_fname" />
                 <ScalarProperty Name="p_lname" ColumnName="p_lname" />
                 <ScalarProperty Name="p_email" ColumnName="p_email" />
+                <ScalarProperty Name="p_phonenr" ColumnName="p_phonenr" />
+                <ScalarProperty Name="p_image" ColumnName="p_image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -644,6 +652,7 @@
               <MappingFragment StoreEntitySet="phs_projhostingenv">
                 <ScalarProperty Name="phs_id" ColumnName="phs_id" />
                 <ScalarProperty Name="phs_name" ColumnName="phs_name" />
+                <ScalarProperty Name="phs_desc" ColumnName="phs_desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -652,6 +661,7 @@
               <MappingFragment StoreEntitySet="pms_projmanagementenv">
                 <ScalarProperty Name="pms_id" ColumnName="pms_id" />
                 <ScalarProperty Name="pms_name" ColumnName="pms_name" />
+                <ScalarProperty Name="pms_desc" ColumnName="pms_desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -675,7 +685,6 @@
                 <ScalarProperty Name="s_nr" ColumnName="s_nr" />
                 <ScalarProperty Name="s_address" ColumnName="s_address" />
                 <ScalarProperty Name="s_dob" ColumnName="s_dob" />
-                <ScalarProperty Name="s_phonenr" ColumnName="s_phonenr" />
                 <ScalarProperty Name="s_d_department" ColumnName="s_d_department" />
               </MappingFragment>
             </EntityTypeMapping>

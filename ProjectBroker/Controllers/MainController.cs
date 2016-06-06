@@ -44,19 +44,21 @@ namespace ProjectBroker.Controllers
             if (pr_name_get == null || pr_desc_get == null)
                 throw new ArgumentException("Null values presented");
 
-            pr_project p = new pr_project()
-            {
-                pr_name = pr_name_get,
-                pr_desc = pr_desc_get,
-                pr_pms_id = "PMS1",
-                pr_phs_id = "PHV1",
-                pr_t_id = "23221AB333",
-                pr_tm_id = "TM1",
-                pr_id = ProjectManager.GetNextProjectID()
-            };
+            ProjectManager.CreateProject(pr_name_get,pr_desc_get,"","","","","");
 
-            DBManager.db.pr_project.Add(p);
-            DBManager.db.SaveChanges();
+            //pr_project p = new pr_project()
+            //{
+            //    pr_name = pr_name_get,
+            //    pr_desc = pr_desc_get,
+            //    pr_pms_id = "PMS1",
+            //    pr_phs_id = "PHV1",
+            //    pr_t_id = "23221AB333",
+            //    pr_tm_id = "TM1",
+            //    pr_id = ProjectManager.GetNextProjectID()
+            //};
+
+            //DBManager.db.pr_project.Add(p);
+            //DBManager.db.SaveChanges();
 
             //Response.Write("Name:" + pr_name_get + "; Desc: " + pr_desc_get);
             return Redirect(Url.Action("Index", "Main"));

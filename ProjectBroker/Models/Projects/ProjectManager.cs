@@ -10,7 +10,7 @@ namespace ProjectBroker.Models.Projects
     {
         public static readonly string pr_name_default = "Default Project Name";
         public static readonly string pr_desc_default = "Default Description";
-        public static readonly byte[] pr_image_default = new Byte[0];
+        public static readonly string pr_image_default = "";
         public static readonly string pr_t_id_default = "THE0000001";
         public static readonly string pr_pms_id_default = "PMS1";
         public static readonly string pr_phs_id_default = "PHV1";
@@ -52,16 +52,16 @@ namespace ProjectBroker.Models.Projects
             return f;
         }
 
-        public static pr_project CreateProject(string P_ID, string pr_name_get, string pr_desc_get, byte[] pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
+        public static pr_project CreateProject(string pr_name_get, string pr_desc_get, string pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
         {
-            if (P_ID == null || P_ID == "" || pr_name_get == null)
-                throw new ArgumentException("invalid pr_id or pr_name");
+            if (pr_name_get == null)
+                throw new ArgumentException("invalid pr_name");
 
             //Add default image
             var pr_image_set = (pr_image_get == null) ? ProjectManager.pr_image_default : pr_image_get;
             var pr_name_set = (pr_name_get == "") ? ProjectManager.pr_name_default : pr_name_get;
             var pr_desc_set = (pr_desc_get == null || pr_desc_get == "") ? ProjectManager.pr_desc_default : pr_desc_get;
-            var pr_id_set = P_ID;
+            var pr_id_set = ProjectManager.GetNextProjectID();
             var pr_t_id_set = (pr_tm_id_get == null || pr_tm_id_get == "") ? ProjectManager.pr_tm_id_default : pr_tm_id_get;
             var pr_pms_id_set = (pr_pms_id_get == null || pr_pms_id_get == "") ? ProjectManager.pr_pms_id_default : pr_pms_id_get;
             var pr_phs_id_set = (pr_phs_id_get == null || pr_phs_id_get == "") ? ProjectManager.pr_phs_id_default : pr_phs_id_get;
@@ -86,10 +86,10 @@ namespace ProjectBroker.Models.Projects
 
         }
 
-        public static pr_project UpdateProject(string P_ID, string pr_name_get, string pr_desc_get, byte[] pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
+        public static pr_project UpdateProject(string P_ID, string pr_name_get, string pr_desc_get, string pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
         {
             var l = DeleteProject(P_ID);
-            var f = CreateProject(P_ID, pr_name_get, pr_desc_get, pr_image_get, pr_t_id_get, pr_pms_id_get, pr_phs_id_get, pr_tm_id_get);
+            var f = CreateProject(pr_name_get, pr_desc_get, pr_image_get, pr_t_id_get, pr_pms_id_get, pr_phs_id_get, pr_tm_id_get);
             if (f == null)
             {
                 DBManager.db.pr_project.Add(l);
