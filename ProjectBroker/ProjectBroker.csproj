@@ -233,7 +233,10 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Login\LoginUtils.cs" />
+    <Compile Include="Models\Persons\PersonManager.cs" />
     <Compile Include="Models\Projects\ProjectManager.cs" />
+    <Compile Include="Models\Students\StudentManager.cs" />
+    <Compile Include="Models\Teachers\TeacherManager.cs" />
     <Compile Include="Models\ViewModels\MainViewViewModel.cs" />
     <Compile Include="Models\Login\StandaloneAuthParams.cs" />
     <Compile Include="Models\Login\StandaloneLoginManager.cs" />
