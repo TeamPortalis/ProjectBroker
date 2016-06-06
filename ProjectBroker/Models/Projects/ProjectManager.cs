@@ -49,6 +49,7 @@ namespace ProjectBroker.Models.Projects
 
             if (i == 0)
                 throw new ArgumentException("No matching Projects!");
+            DBManager.db.SaveChanges();
             return f;
         }
 

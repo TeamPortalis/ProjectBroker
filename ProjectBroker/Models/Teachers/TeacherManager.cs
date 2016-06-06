@@ -49,6 +49,7 @@ namespace ProjectBroker.Models.Teachers
             var i = l.RemoveAll(x => x.t_id == t_id_get);
             if (i == 0)
                 throw new ArgumentException("No matching Teachers in delete!");
+            DBManager.db.SaveChanges();
             return f;
         }
 

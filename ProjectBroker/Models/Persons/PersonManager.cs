@@ -95,6 +95,7 @@ namespace ProjectBroker.Models.Persons
             var i = l.RemoveAll(x => x.p_id == p_id_get);
             if (i == 0)
                 throw new ArgumentException("No matching Persons in delete!");
+            DBManager.db.SaveChanges();
             return f;
         }
 

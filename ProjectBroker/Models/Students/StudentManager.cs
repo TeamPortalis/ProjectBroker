@@ -68,6 +68,7 @@ namespace ProjectBroker.Models.Students
             var i = l.RemoveAll(x => x.s_nr == s_nr_get);
             if (i == 0)
                 throw new ArgumentException("No matching Students in delete!");
+            DBManager.db.SaveChanges();
             return f;
         }
 
