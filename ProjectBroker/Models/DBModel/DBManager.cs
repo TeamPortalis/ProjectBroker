@@ -30,5 +30,7 @@ namespace ProjectBroker.Models.DBModel
             var messageDigest = hashed.ComputeHash(s);
             return Convert.ToBase64String(messageDigest);
         }
+
+        
     }
 }
