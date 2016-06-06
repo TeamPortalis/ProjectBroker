@@ -51,5 +51,38 @@ namespace ProjectBroker.Models.Students
             return r;
         }
 
+        public static IEnumerable<s_student> GetAllStudents()
+        {
+            var l = (from i in DBManager.db.s_student
+                     select i).ToList();
+            return l;
+        }
+
+        public static s_student DeleteStudent(string s_nr_get)
+        {
+            if (s_nr_get == null || s_nr_get == "")
+                throw new ArgumentException("s_nr Null in Delete Students");
+            var l = (from p in DBManager.db.s_student
+                     select p).ToList();
+            var f = l.First();
+            var i = l.RemoveAll(x => x.s_nr == s_nr_get);
+            if (i == 0)
+                throw new ArgumentException("No matching Students in delete!");
+            return f;
+        }
+
+        public static s_student UpdateStudent(string s_nr_get, string s_address_get, System.DateTime s_dob_get, string s_d_department_get)
+        {
+            var l = DeleteStudent(s_nr_get);
+            var f = CreateStudent(s_nr_get, s_address_get, s_dob_get, s_d_department_get);
+            if (f == null)
+            {
+                DBManager.db.s_student.Add(l);
+                DBManager.db.SaveChanges();
+                throw new ArgumentException("Student could not be created in the update process!");
+            }
+            return f;
+        }
+
     }
 }

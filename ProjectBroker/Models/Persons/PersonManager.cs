@@ -88,7 +88,7 @@ namespace ProjectBroker.Models.Persons
         public static p_person DeletePerson(string p_id_get)
         {
             if (p_id_get == null || p_id_get == "")
-                throw new ArgumentException("P_ID Null in DeleteProject");
+                throw new ArgumentException("P_ID Null in Delete Persons");
             var l = (from p in DBManager.db.p_person
                      select p).ToList();
             var f = l.First();
