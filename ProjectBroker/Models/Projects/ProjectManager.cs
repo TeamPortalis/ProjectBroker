@@ -10,7 +10,7 @@ namespace ProjectBroker.Models.Projects
     {
         public static readonly string pr_name_default = "Default Project Name";
         public static readonly string pr_desc_default = "Default Description";
-        public static readonly string pr_image_default = "";
+        public static readonly string pr_image_default = "https://partner8.microsoft.com:443/-/media/mssc/mpn/partner/solutions/images/simplehero_sideimage_400x225_project.ashx";
         public static readonly string pr_t_id_default = "THE0000001";
         public static readonly string pr_pms_id_default = "PMS1";
         public static readonly string pr_phs_id_default = "PHV1";
