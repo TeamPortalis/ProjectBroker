@@ -12,6 +12,7 @@
     </div>
     <div class="row cells2">
         <div class="cell">
+            @*User input*@
             <div class="input-control modern text iconic">
                 <input type="text" placeholder="Input login" style="color: #cacaca;" id="user_field">
                 <span class="label" style="color: #cacaca;">Username</span>
@@ -20,6 +21,7 @@
             </div>
         </div>
         <div class="cell">
+            @*Password input*@
             <div class="input-control modern password iconic" data-role="input">
                 <input type="password" placeholder="Input password" style="color: #cacaca;" id="password_field">
                 <span class="label" style="color: #cacaca;">Password</span>
@@ -30,6 +32,7 @@
         </div> 
     </div>
     <div class="row cells2" style="margin-left: 30px; margin-top:50px;">
+        @*Remember Me Checkbox*@
         <div class="cell" style="margin-top:10px;">
             <span style="color: #cacaca;">Remember me &nbsp;</span>
             <label class="switch">
@@ -37,17 +40,9 @@
                 <span class="check"></span>
             </label>
         </div>
+        @*Login button*@
         <div class="cell">
             <button class="button" style="background-color:#cacaca; width: 85%;">Login <span class="mif-unlock"></span></button>
         </div>
     </div>
 </div>
-
-
-
-@if (!(Session["UName"] == null))
-{
-    <script>
-        window.location.href = '@Url.Action("Index","Main")';
-    </script>
-}
