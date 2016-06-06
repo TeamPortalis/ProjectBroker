@@ -23,7 +23,6 @@ namespace ProjectBroker.Models.DBModel
         public string s_nr { get; set; }
         public string s_address { get; set; }
         public System.DateTime s_dob { get; set; }
-        public string s_phonenr { get; set; }
         public string s_d_department { get; set; }
     
         public virtual d_department d_department { get; set; }

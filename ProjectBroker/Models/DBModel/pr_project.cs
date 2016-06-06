@@ -17,7 +17,7 @@ namespace ProjectBroker.Models.DBModel
         public string pr_id { get; set; }
         public string pr_name { get; set; }
         public string pr_desc { get; set; }
-        public byte[] pr_image { get; set; }
+        public string pr_image { get; set; }
         public string pr_t_id { get; set; }
         public string pr_pms_id { get; set; }
         public string pr_phs_id { get; set; }

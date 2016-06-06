@@ -141,6 +141,7 @@
     <Content Include="Fonts\metro.woff" />
     <Content Include="Fonts\metro.ttf" />
     <Content Include="Fonts\metro.eot" />
+    <None Include="ConnnectionStrings.config.example" />
     <EntityDeploy Include="Models\DBModel\DBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
@@ -148,7 +149,6 @@
     <Content Include="Models\DBModel\DBModel.edmx.diagram">
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Content>
-    <None Include="ConnnectionStrings.config.example" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Models\DBModel\DBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

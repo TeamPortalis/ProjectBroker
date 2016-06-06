@@ -22,6 +22,7 @@ namespace ProjectBroker.Models.DBModel
     
         public string phs_id { get; set; }
         public string phs_name { get; set; }
+        public string phs_desc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pr_project> pr_project { get; set; }
