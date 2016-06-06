@@ -3,7 +3,7 @@
     ViewBag.Title = "New Project";
 }
 
-
+@*TODO: Try out Form ID association for project creation helper form.*@
 
 <div class="wizard2" data-role="wizard2" data-button-labels="{help: ?, prev:<span class='mif-arrow-left'></span>;, next: <span class='mif-arrow-right'></span>, finish: <span class='mif-checkmark'></span>}"
     style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();" data-on-finish="submitNewProject();">
@@ -29,7 +29,7 @@
     @foreach(var i in Model.AllProjectHostingEnvs)
     {
         
-        @if(Model.AllProjectHostingEnvs.First().phs_id == i.phs_id)
+        if(Model.AllProjectHostingEnvs.First().phs_id == i.phs_id)
         {
             <option value="@i.phs_id" selected>@i.phs_name</option>
         }
@@ -65,11 +65,32 @@
     </div>
     <div class="step next">
         <div class="step-content">
-            <select id="teamSelectorId"></select>
-            @if(Model.AllTeams.Count() == 0)
-            {
-                <option value="$NoTeam$" selected>Create New Team</option>
-            } 
+            <div class="input-control select">
+                <select id="teamSelectorId" onselect="selectChanged()" >
+                    @if (Model.AllTeams.Count() == 0)
+                    {
+                        <option value="$NoTeam$" selected>Create New Team</option>
+                    }
+                    else
+                    {
+                        foreach (var t in Model.AllTeams)
+                        {
+                            if (Model.AllTeams.First().tm_id == t.tm_id)
+                            {
+                                <option value="@t.tm_id" selected>@t.tm_name</option>
+                            }
+                            else
+                            {
+                                <option value="@t.tm_id" selected>@t.tm_name</option>
+                            }
+                        }
+                        <option value="$NoTeam$">Create New Team</option>
+                    }
+                </select>
+                <div style="display: none;">
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="action-bar next">
@@ -118,6 +139,13 @@
         form.submit();
 
 
+    }
+
+    function teamCreatorSelectChanged() {
+        var val = document.getElementById("teamSelectorId").value;
+        if (value === "$NoTeam$") {
+            
+        }
     }
     
 </script>

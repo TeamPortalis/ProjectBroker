@@ -31,9 +31,14 @@ namespace ProjectBroker.Controllers
         }
 
         // GET: New
+        [Authorize]
         public ActionResult New()
         {
-            return View();
+            var model = new NewProjectViewModel();
+            model.AllProjectHostingEnvs = DBManager.db.phs_projhostingenv.ToList();
+            model.AllProjectManagementEnvs = DBManager.db.pms_projmanagementenv.ToList();
+            model.AllTeams = DBManager.db.tm_team.ToList();
+            return View(model);
         }
 
         [HttpPost]
