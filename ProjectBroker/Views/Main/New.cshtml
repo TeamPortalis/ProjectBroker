@@ -4,7 +4,11 @@
 }
 
 @*TODO: Try out Form ID association for project creation helper form.*@
-
+<style>
+   .custom-no-display{
+       display: none;
+   }
+</style>
 @*New Project Wizard*@
 <div class="wizard2" data-role="wizard2" data-button-labels="{help: ?, prev:<span class='mif-arrow-left'></span>;, next: <span class='mif-arrow-right'></span>, finish: <span class='mif-checkmark'></span>}"
     style="background-color: #cacaca; width:50%; margin: auto;" data-on-help="helpNotif();" data-on-finish="submitNewProject();">
@@ -13,11 +17,12 @@
         <div class="step-content">
             Enter project-name:<br />
             <div class="input-control text" style="width: 100%;">
-                <input id="pNameTF" type="text" placeholder="Project-name ..." />
+                <input id="pNameTF" type="text" placeholder="Project-name ..." 
+                       name="pr_name" form="formHelper"/>
             </div><br />
             Enter project-description:<br />
             <div class="input-control textarea" style="width: 100%;">
-                <textarea id="pDescTF" style="resize: none;">
+                <textarea id="pDescTF" style="resize: none;" name="pr_desc" form="formHelper">
                 </textarea>
             </div>
         </div>
@@ -26,7 +31,7 @@
         <div class="step-content">
             Choose your file-hosting environment:<br />
             <div class="input-control select">
-                <select id="selectPHE">
+                <select id="selectPHE" name="pr_hosting_env" form="formHelper">
     @foreach(var i in Model.AllProjectHostingEnvs)
     {
         
@@ -48,7 +53,7 @@
         <div class="step-content">
             Choose your project-management environment:<br />
             <div class="input-control select">
-                <select id="selectPME">
+                <select id="selectPME" name="pr_management_env" form="formHelper">
                     @foreach(var i in Model.AllProjectManagementEnvs)
                     {
                         if(Model.AllProjectManagementEnvs.First().pms_id == i.pms_id)
@@ -67,7 +72,7 @@
     <div class="step next">
         <div class="step-content">
             <div class="input-control select">
-                <select id="teamSelectorId" onselect="selectChanged()" >
+                <select id="teamSelectorId" onchange="selectChanged()" onloadeddata="selectChanged()">
                     @if (Model.AllTeams.Count() == 0)
                     {
                         <option value="$NoTeam$" selected>Create New Team</option>
@@ -82,22 +87,44 @@
                             }
                             else
                             {
-                                <option value="@t.tm_id" selected>@t.tm_name</option>
+                                <option value="@t.tm_id">@t.tm_name</option>
                             }
                         }
                         <option value="$NoTeam$">Create New Team</option>
                     }
                 </select>
-                <div style="display: none;">
-
+            </div>
+            <div>
+                <div id="teamCreatorHelper" class="">
+                    <label for="newTeamNameTF">Team Name</label>
+                    <div class="input-control text">
+                        <input type="text" name="pr_new_team_name" form="formHelper" id="newTeamNameTF"/>
+                    </div>
+                    <div>
+                        <label for="studentSelection">Team Members</label>
+                        <select id="studentSelection" form="formHelper" name="" class="custom-no-display" multiple style="width: 60%;">
+                            @if (Model.AllPossibleTeamMembers.Count() == 0)
+                            {
+                                <option value="" selected>No Studends</option>
+                            }
+                            else
+                            {
+                                foreach (var i in Model.AllPossibleTeamMembers)
+                                {
+                                    if (i.p_person.p_id == Model.AllPossibleTeamMembers.First().p_person.p_id)
+                                    {
+                                        <option value="@i.s_nr">@i.p_person.p_fname @i.p_person.p_lname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i.s_nr">@i.p_person.p_fname @i.p_person.p_lname</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>                    
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="step next">
-        <div class="step-content">
-            Choose or create a team you want to work on the project with!
-            
         </div>
     </div>
     <div class="action-bar next">
@@ -114,8 +141,9 @@
     @Html.AntiForgeryToken()
 }
 
-
-<script>
+@section scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+    <script>
     function helpNotif()
     {
         $.Notify({
@@ -127,7 +155,7 @@
 
     function submitNewProject() {
 
-        var projectName = document.createElement("INPUT");
+        /*var projectName = document.createElement("INPUT");
         projectName.setAttribute("type", "hidden");
         projectName.setAttribute("name", "pr_name_get");
         var pNameValue = document.getElementById("pNameTF").value;
@@ -137,22 +165,41 @@
         projectDesc.setAttribute("type", "hidden");
         projectDesc.setAttribute("name", "pr_desc_get");
         var pDescValue = document.getElementById("pDescTF").value;
-        projectDesc.setAttribute("value", pDescValue);
+        projectDesc.setAttribute("value", pDescValue);*/
 
         var form = document.getElementById("formHelper");
-        form.appendChild(projectName);
-        form.appendChild(projectDesc);
+        /*form.appendChild(projectName);
+        form.appendChild(projectDesc);*/
 
         form.submit();
 
 
     }
 
-    function teamCreatorSelectChanged() {
+    
+       
+
+    function selectChanged() {
         var val = document.getElementById("teamSelectorId").value;
-        if (value === "$NoTeam$") {
-            
+        console.log(val);
+        if (val === "$NoTeam$") {
+            $('#teamCreatorHelper').removeClass('custom-no-display');
+            $('#studentSelection').select2();
+        } else {
+           $('#studentSelection').select2('destroy');
+           $('#teamCreatorHelper').addClass('custom-no-display');
         }
     }
-    
+
+    $(document).ready(function () {
+        var val = document.getElementById("teamSelectorId").value;
+        console.log(val);
+        if (val === "$NoTeam$") {
+            $('#teamCreatorHelper').removeClass('custom-no-display');
+            $('#studentSelection').select2();
+        } else {
+            $('#teamCreatorHelper').addClass('custom-no-display');
+        }
+    });
 </script>
+}

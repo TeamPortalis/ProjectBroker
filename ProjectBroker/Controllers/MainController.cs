@@ -38,18 +38,19 @@ namespace ProjectBroker.Controllers
             model.AllProjectHostingEnvs = DBManager.db.phs_projhostingenv.ToList();
             model.AllProjectManagementEnvs = DBManager.db.pms_projmanagementenv.ToList();
             model.AllTeams = DBManager.db.tm_team.ToList();
+            model.AllPossibleTeamMembers = DBManager.db.s_student.ToList();
             return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult New(string pr_name_get, string pr_desc_get)
+        public ActionResult New(string pr_name, string pr_desc, string pr_hosting_env, string pr_management_env, string pr_team, string pr_new_team_name, string[] pr_team_values)
         {
             //Add validation here or in view with metadata
-            if (pr_name_get == null || pr_desc_get == null)
+            if (pr_name == null || pr_desc == null)
                 throw new ArgumentException("Null values presented");
 
-            ProjectManager.CreateProject(pr_name_get,pr_desc_get,"","","","","");
+            //ProjectManager.CreateProject(pr_name,pr_desc,"","","","","");
 
             //pr_project p = new pr_project()
             //{
@@ -65,8 +66,8 @@ namespace ProjectBroker.Controllers
             //DBManager.db.pr_project.Add(p);
             //DBManager.db.SaveChanges();
 
-            //Response.Write("Name:" + pr_name_get + "; Desc: " + pr_desc_get);
-            return Redirect(Url.Action("Index", "Main"));
+            Response.Write("Name:" + pr_name + "; Desc: " + pr_desc + "; HENV: " + pr_hosting_env + "; MENV: "+ pr_management_env);
+            return /*Redirect(Url.Action("Index", "Main"))*/ null;
     }
     }
 }

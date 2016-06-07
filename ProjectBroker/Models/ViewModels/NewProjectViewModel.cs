@@ -13,5 +13,6 @@ namespace ProjectBroker.Models.ViewModels
         public IEnumerable<pms_projmanagementenv> AllProjectManagementEnvs { get; set; }
 
         public IEnumerable<tm_team> AllTeams { get; set; }
+        public IEnumerable<s_student> AllPossibleTeamMembers { get; set; }
     }
 }
