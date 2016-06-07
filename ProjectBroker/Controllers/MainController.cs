@@ -68,6 +68,6 @@ namespace ProjectBroker.Controllers
 
             Response.Write("Name:" + pr_name + "; Desc: " + pr_desc + "; HENV: " + pr_hosting_env + "; MENV: "+ pr_management_env);
             return /*Redirect(Url.Action("Index", "Main"))*/ null;
-    }
+        }
     }
 }

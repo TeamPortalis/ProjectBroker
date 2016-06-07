@@ -9,9 +9,10 @@ namespace ProjectBroker.Controllers
     public class ProjectsController : Controller
     {
         // GET: Projects
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Index(string id)
         {
-
+               
             return View();
         }
     }
