@@ -63,7 +63,7 @@ namespace ProjectBroker.Models.Projects
             var pr_name_set = (pr_name_get == "") ? ProjectManager.pr_name_default : pr_name_get;
             var pr_desc_set = (pr_desc_get == null || pr_desc_get == "") ? ProjectManager.pr_desc_default : pr_desc_get;
             var pr_id_set = ProjectManager.GetNextProjectID();
-            var pr_t_id_set = (pr_tm_id_get == null || pr_tm_id_get == "") ? ProjectManager.pr_tm_id_default : pr_tm_id_get;
+            var pr_t_id_set = (pr_t_id_get == null || pr_t_id_get == "") ? ProjectManager.pr_t_id_default : pr_t_id_get;
             var pr_pms_id_set = (pr_pms_id_get == null || pr_pms_id_get == "") ? ProjectManager.pr_pms_id_default : pr_pms_id_get;
             var pr_phs_id_set = (pr_phs_id_get == null || pr_phs_id_get == "") ? ProjectManager.pr_phs_id_default : pr_phs_id_get;
             var pr_tm_id_set = (pr_tm_id_get == null || pr_tm_id_get == "") ? ProjectManager.pr_tm_id_default : pr_tm_id_get;
