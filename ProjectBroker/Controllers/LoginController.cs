@@ -8,6 +8,9 @@ using System.Web.Security;
 
 namespace ProjectBroker.Controllers
 {
+    /// <summary>
+    /// the Controller responsible for login.
+    /// </summary>
     public class LoginController : Controller
     {
         // GET: Login

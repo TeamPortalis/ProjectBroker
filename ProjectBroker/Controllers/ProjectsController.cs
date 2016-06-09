@@ -11,6 +11,11 @@ namespace ProjectBroker.Controllers
     public class ProjectsController : Controller
     {
         // GET: Projects
+        /// <summary>
+        /// Show project details
+        /// </summary>
+        /// <param name="id">the id of a project</param>
+        /// <returns>The action to be taken</returns>
         [Authorize]
         public ActionResult Index(string id)
         {
