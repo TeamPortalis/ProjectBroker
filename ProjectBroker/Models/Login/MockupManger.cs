@@ -5,6 +5,9 @@ using System.Web;
 
 namespace ProjectBroker.Models
 {
+    /// <summary>
+    /// A test manager for login data.
+    /// </summary>
     public class MockupLoginManager : ILoginManager
     {
 

@@ -1,5 +1,9 @@
 ﻿namespace ProjectBroker.Models
 {
+
+    /// <summary>
+    /// Parameters for standalone login manager
+    /// </summary>
     public class StandaloneAuthParams
     {
 

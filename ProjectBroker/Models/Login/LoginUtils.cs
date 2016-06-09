@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProjectBroker.Models.Login
 {
+    /// <summary>
+    /// A helper class for login-related stuff.
+    /// </summary>
     public class LoginUtils
     {
         public static p_person UserForLogin(string username)

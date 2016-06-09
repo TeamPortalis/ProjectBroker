@@ -10,7 +10,11 @@ namespace ProjectBroker.Models
     public class StandaloneLoginManage : ILoginManager, IAuthTokenFactory<StandaloneAuthParams>, IAutorizeTokenFactory<StandaloneAuthTokenParams>
     {
 
-
+        /// <summary>
+        /// Authenticates a user via a stored procedure in the database.
+        /// </summary>
+        /// <param name="authenticationToken">A data structure containing the information needed for authenticating a user.</param>
+        /// <returns>A boolean that indicates if a user was successfully loged in.</returns>
         public bool authenticate(IAuthToken authenticationToken)
         {
             var connectionString = DBManager.db.Database.Connection.ConnectionString;
@@ -52,6 +56,11 @@ namespace ProjectBroker.Models
 
         }
 
+        /// <summary>
+        /// Authorize a user based on their type in the database.
+        /// </summary>
+        /// <param name="token">The actual authorization request.</param>
+        /// <returns>A boolean if the request was successful or not.</returns>
         public bool authorize(IAuthorizeToken token)
         {
 
@@ -75,6 +84,11 @@ namespace ProjectBroker.Models
 
         }
 
+        /// <summary>
+        /// Factory method for Token generation
+        /// </summary>
+        /// <param name="authParams">Parameters for genreation</param>
+        /// <returns>A token containing all neccessary information</returns>
         public IAuthToken CreateAuthToken(StandaloneAuthParams authParams)
         {
             if (authParams.Type == AuthenticationType.USER_PASS)
@@ -86,7 +100,11 @@ namespace ProjectBroker.Models
                 return new InternalAuthToken(authParams.Username, authParams.AuthToken, AuthenticationType.TOKEN);
             }
         }
-
+        /// <summary>
+        /// Factory method for Token generation
+        /// </summary>
+        /// <param name="authParams">Parameters for genreation</param>
+        /// <returns>A token containing all neccessary information</returns>
         public IAuthorizeToken CreateAuthorizeToken(StandaloneAuthTokenParams authorizationParam)
         {
             return new InternalAuthorizationToken(authorizationParam.Type, authorizationParam.Username);
