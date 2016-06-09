@@ -56,7 +56,7 @@ Tile Template
                         <div class="slide">
                             <span class="mif-home"></span>
                         </div>
-                        <div class="slide-over op-crimson text-small padding10">
+                        <div class="slide-over op-crimson text-small padding10" onclick="loadDetails('@p.pr_id')">
                             <b>@p.pr_name</b> - 
                             @if(p.pr_desc.Length > 50)
                             {
@@ -210,5 +210,9 @@ Tile Template
 
     function NewProject() {
         window.location = "@Url.Action("New", "Main")";
+    }
+
+    function loadDetails(id){
+        window.location = "@Url.Action("Index", "Projects")" + "/" + id;
     }
 </script>

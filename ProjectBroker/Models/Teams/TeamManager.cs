@@ -13,8 +13,9 @@ namespace ProjectBroker.Models.Teams
         {
             get
             {
-                var teamId = DBManager.db.tm_team.Max(x => int.Parse(x.tm_id.Substring(2)));
-                return "TM" + teamId;
+                var teams = DBManager.db.tm_team.ToList();
+                var teamId = teams.Max(x => int.Parse(x.tm_id.Substring(2)));
+                return "TM" + (teamId+1);
             }
         }
 

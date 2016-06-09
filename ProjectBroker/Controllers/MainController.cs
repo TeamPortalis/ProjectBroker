@@ -28,7 +28,7 @@ namespace ProjectBroker.Controllers
             var vm = new MainViewViewModel() { ActiveUser = user, CurrentProjects = projectsForCurrentUser,
                 RecommendedProjects = projectsForCurrentUser};
 
-            return View(vm );
+            return View(vm);
         }
 
         // GET: New
@@ -59,12 +59,18 @@ namespace ProjectBroker.Controllers
                     throw new ArgumentNullException();
                 var newTeam = new tm_team() { tm_name = pr_new_team_name, tm_id = TeamManager.NextTeamID };
                 DBManager.db.tm_team.Add(newTeam);
+                foreach(var p in pr_team_values)
+                {
+                    var teamMember = DBManager.db.s_student.Where(x => p == x.s_nr).First();
+                    newTeam.s_student.Add(teamMember);
+                }
                 DBManager.db.SaveChanges();
                 team = newTeam.tm_id;
             }
 
-            ProjectManager.CreateProject(pr_name,pr_desc,"","",pr_management_env,
-                pr_hosting_env,team);
+            ProjectManager.CreateProject(pr_name, pr_desc, "", "", pr_management_env,
+                pr_hosting_env, team);
+            DBManager.db.SaveChanges();
 
             //pr_project p = new pr_project()
             //{
