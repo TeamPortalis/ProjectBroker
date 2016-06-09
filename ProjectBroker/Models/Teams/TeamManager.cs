@@ -6,9 +6,15 @@ using System.Web;
 
 namespace ProjectBroker.Models.Teams
 {
+    /// <summary>
+    /// A helper Class for Team Creation and intended for unification of data access code in the future.
+    /// </summary>
     public class TeamManager
     {
 
+        /// <summary>
+        /// Provided the next Team ID
+        /// </summary>
         public static string NextTeamID
         {
             get
