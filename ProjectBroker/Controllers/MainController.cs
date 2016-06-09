@@ -1,6 +1,7 @@
 ﻿using ProjectBroker.Models.DBModel;
 using ProjectBroker.Models.Login;
 using ProjectBroker.Models.Projects;
+using ProjectBroker.Models.Teams;
 using ProjectBroker.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -47,10 +48,23 @@ namespace ProjectBroker.Controllers
         public ActionResult New(string pr_name, string pr_desc, string pr_hosting_env, string pr_management_env, string pr_team, string pr_new_team_name, string[] pr_team_values)
         {
             //Add validation here or in view with metadata
-            if (pr_name == null || pr_desc == null)
+            if (pr_name == null || pr_desc == null || pr_hosting_env == null || pr_management_env == null || pr_team == null)
                 throw new ArgumentException("Null values presented");
 
-            //ProjectManager.CreateProject(pr_name,pr_desc,"","","","","");
+            var team = pr_team;
+
+            if(pr_team == "$NoTeam$")
+            {
+                if (pr_new_team_name == null || pr_team_values == null)
+                    throw new ArgumentNullException();
+                var newTeam = new tm_team() { tm_name = pr_new_team_name, tm_id = TeamManager.NextTeamID };
+                DBManager.db.tm_team.Add(newTeam);
+                DBManager.db.SaveChanges();
+                team = newTeam.tm_id;
+            }
+
+            ProjectManager.CreateProject(pr_name,pr_desc,"","",pr_management_env,
+                pr_hosting_env,team);
 
             //pr_project p = new pr_project()
             //{
@@ -66,8 +80,22 @@ namespace ProjectBroker.Controllers
             //DBManager.db.pr_project.Add(p);
             //DBManager.db.SaveChanges();
 
-            Response.Write("Name:" + pr_name + "; Desc: " + pr_desc + "; HENV: " + pr_hosting_env + "; MENV: "+ pr_management_env);
-            return /*Redirect(Url.Action("Index", "Main"))*/ null;
+            /*Response.Write("Name:" + pr_name + "; Desc: " + pr_desc + "; HENV: " + pr_hosting_env + "; MENV: "+ pr_management_env);
+            Response.Write("\nTeam Value: " + pr_team);
+            if(pr_team == "$NoTeam$")
+            {
+                if (pr_new_team_name == null || pr_team_values == null)
+                    throw new ArgumentException("Null values presented");
+
+                Response.Write("New Team Name: " + pr_new_team_name);
+                foreach(var i in pr_team_values)
+                {
+                    Response.Write("Value: " + i + "\n");
+                }
+
+            }*/
+                
+            return Redirect(Url.Action("Index", "Main"));
         }
     }
 }

@@ -72,7 +72,7 @@
     <div class="step next">
         <div class="step-content">
             <div class="input-control select">
-                <select id="teamSelectorId" onchange="selectChanged()" onloadeddata="selectChanged()">
+                <select id="teamSelectorId" onchange="selectChanged()" onloadeddata="selectChanged()" name="pr_team" form="formHelper">
                     @if (Model.AllTeams.Count() == 0)
                     {
                         <option value="$NoTeam$" selected>Create New Team</option>
@@ -102,7 +102,7 @@
                     </div>
                     <div>
                         <label for="studentSelection">Team Members</label>
-                        <select id="studentSelection" form="formHelper" name="" class="custom-no-display" multiple style="width: 60%;">
+                        <select id="studentSelection" form="formHelper" name="pr_team_values" class="custom-no-display" multiple style="width: 60%;">
                             @if (Model.AllPossibleTeamMembers.Count() == 0)
                             {
                                 <option value="" selected>No Studends</option>
