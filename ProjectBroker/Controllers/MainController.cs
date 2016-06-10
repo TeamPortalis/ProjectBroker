@@ -46,7 +46,17 @@ namespace ProjectBroker.Controllers
             //Hand over to view 
             return View(model);
         }
-
+        /// <summary>
+        /// Creates a new project in the database
+        /// </summary>
+        /// <param name="pr_name"></param>
+        /// <param name="pr_desc"></param>
+        /// <param name="pr_hosting_env"></param>
+        /// <param name="pr_management_env"></param>
+        /// <param name="pr_team"></param>
+        /// <param name="pr_new_team_name"></param>
+        /// <param name="pr_team_values"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public ActionResult New(string pr_name, string pr_desc, string pr_hosting_env, string pr_management_env, string pr_team, string pr_new_team_name, string[] pr_team_values)

@@ -69,22 +69,23 @@ namespace ProjectBroker.Models.Persons
             var r = DBManager.db.p_person.Add(p);
             DBManager.db.SaveChanges();
             return r;
-
-        //    public string p_id { get; set; }
-        //public string p_fname { get; set; }
-        //public string p_lname { get; set; }
-        //public string p_email { get; set; }
-        //public string p_phonenr { get; set; }
-        //public string p_image { get; set; }
+            
     }
-
+        /// <summary>
+        /// Gets all persons from the database
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<p_person> GetAllPersons()
         {
             var l = (from i in DBManager.db.p_person
                      select i).ToList();
             return l;
         }
-
+        /// <summary>
+        /// Deletes a person based on the personid
+        /// </summary>
+        /// <param name="p_id_get"></param>
+        /// <returns></returns>
         public static p_person DeletePerson(string p_id_get)
         {
             if (p_id_get == null || p_id_get == "")
@@ -98,7 +99,16 @@ namespace ProjectBroker.Models.Persons
             DBManager.db.SaveChanges();
             return f;
         }
-
+        /// <summary>
+        /// updates a person object in the database
+        /// </summary>
+        /// <param name="p_id_get"></param>
+        /// <param name="p_fname_get"></param>
+        /// <param name="p_lname_get"></param>
+        /// <param name="p_email_get"></param>
+        /// <param name="p_phonenr_get"></param>
+        /// <param name="p_image_get"></param>
+        /// <returns></returns>
         public static p_person UpdatePerson(string p_id_get, string p_fname_get, string p_lname_get, string p_email_get, string p_phonenr_get, string p_image_get)
         {
             var l = DeletePerson(p_id_get);

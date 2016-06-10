@@ -9,7 +9,11 @@ namespace ProjectBroker.Models.Teachers
     public class TeacherManager
     {
         private static object s_d_department_default;
-
+        /// <summary>
+        /// Created a teacher object
+        /// </summary>
+        /// <param name="t_id_get"></param>
+        /// <returns></returns>
         public static t_teacher CreateTeacher(string t_id_get)
         {
             var l = from p in DBManager.db.p_person
@@ -31,14 +35,21 @@ namespace ProjectBroker.Models.Teachers
 
             return r;
         }
-
+        /// <summary>
+        /// Gets all teacher objects from the database
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<t_teacher> GetAllTeachers()
         {
             var l = (from i in DBManager.db.t_teacher
                      select i).ToList();
             return l;
         }
-
+        /// <summary>
+        /// Deletes a teacher from the database
+        /// </summary>
+        /// <param name="t_id_get"></param>
+        /// <returns></returns>
         public static t_teacher DeleteTeacher(string t_id_get)
         {
             if (t_id_get == null || t_id_get == "")
@@ -52,8 +63,12 @@ namespace ProjectBroker.Models.Teachers
             DBManager.db.SaveChanges();
             return f;
         }
-
-        public static t_teacher UpdateStudent(string t_id_get)
+        /// <summary>
+        /// Updates a teacher object in the database
+        /// </summary>
+        /// <param name="t_id_get"></param>
+        /// <returns></returns>
+        public static t_teacher UpdateTeacher(string t_id_get)
         {
             var l = DeleteTeacher(t_id_get);
             var f = CreateTeacher(t_id_get);

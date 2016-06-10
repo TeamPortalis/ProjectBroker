@@ -16,7 +16,7 @@ namespace ProjectBroker.Models.Students
         public static readonly System.DateTime s_dob_default = DateTime.Now;
         public static readonly string s_d_department_default = "D000000000";
         /// <summary>
-        /// 
+        /// Creates a student entry in the database using the parameters
         /// </summary>
         /// <param name="s_nr_get"></param>
         /// <param name="s_address_get"></param>
@@ -51,6 +51,10 @@ namespace ProjectBroker.Models.Students
             return r;
         }
 
+        /// <summary>
+        /// returns all student items in the database
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<s_student> GetAllStudents()
         {
             var l = (from i in DBManager.db.s_student
@@ -58,6 +62,11 @@ namespace ProjectBroker.Models.Students
             return l;
         }
 
+        /// <summary>
+        /// Deletes a student item in the database 
+        /// </summary>
+        /// <param name="s_nr_get"></param>
+        /// <returns></returns>
         public static s_student DeleteStudent(string s_nr_get)
         {
             if (s_nr_get == null || s_nr_get == "")
@@ -71,7 +80,14 @@ namespace ProjectBroker.Models.Students
             DBManager.db.SaveChanges();
             return f;
         }
-
+        /// <summary>
+        /// Updates a student item in the database
+        /// </summary>
+        /// <param name="s_nr_get"></param>
+        /// <param name="s_address_get"></param>
+        /// <param name="s_dob_get"></param>
+        /// <param name="s_d_department_get"></param>
+        /// <returns></returns>
         public static s_student UpdateStudent(string s_nr_get, string s_address_get, System.DateTime s_dob_get, string s_d_department_get)
         {
             var l = DeleteStudent(s_nr_get);

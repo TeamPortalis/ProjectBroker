@@ -16,7 +16,11 @@ namespace ProjectBroker.Models.Projects
         public static readonly string pr_phs_id_default = "PHV1";
         public static readonly string pr_tm_id_default = "TM1";
 
-
+        /// <summary>
+        /// Gets all projects for the active user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static IEnumerable<pr_project> GetAllProjectOfCurrentUser(p_person user)
         {
 
@@ -26,12 +30,21 @@ namespace ProjectBroker.Models.Projects
             return result.ToList();
         }
 
+        /// <summary>
+        /// Gets the next available project ID
+        /// </summary>
+        /// <returns></returns>
         public static string GetNextProjectID()
         {
             var teamId = DBManager.db.pr_project.ToList().Select<pr_project, string>(x => x.pr_id.Substring(3)).Max(x => int.Parse(x));
             return "PID" + (teamId+1);   
         }
 
+        /// <summary>
+        /// Deletes a project
+        /// </summary>
+        /// <param name="P_ID"></param>
+        /// <returns></returns>
         public static pr_project DeleteProject(string P_ID)
         {
             if (P_ID == null || P_ID == "")
@@ -47,6 +60,17 @@ namespace ProjectBroker.Models.Projects
             return f;
         }
 
+        /// <summary>
+        /// Creates a project based on the parameters, with default values if an empty string is presented
+        /// </summary>
+        /// <param name="pr_name_get"></param>
+        /// <param name="pr_desc_get"></param>
+        /// <param name="pr_image_get"></param>
+        /// <param name="pr_t_id_get"></param>
+        /// <param name="pr_pms_id_get"></param>
+        /// <param name="pr_phs_id_get"></param>
+        /// <param name="pr_tm_id_get"></param>
+        /// <returns></returns>
         public static pr_project CreateProject(string pr_name_get, string pr_desc_get, string pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
         {
             if (pr_name_get == null)
@@ -80,7 +104,18 @@ namespace ProjectBroker.Models.Projects
             return p;
 
         }
-
+        /// <summary>
+        /// Updates a project in the database
+        /// </summary>
+        /// <param name="P_ID"></param>
+        /// <param name="pr_name_get"></param>
+        /// <param name="pr_desc_get"></param>
+        /// <param name="pr_image_get"></param>
+        /// <param name="pr_t_id_get"></param>
+        /// <param name="pr_pms_id_get"></param>
+        /// <param name="pr_phs_id_get"></param>
+        /// <param name="pr_tm_id_get"></param>
+        /// <returns></returns>
         public static pr_project UpdateProject(string P_ID, string pr_name_get, string pr_desc_get, string pr_image_get, string pr_t_id_get, string pr_pms_id_get, string pr_phs_id_get, string pr_tm_id_get)
         {
             var l = DeleteProject(P_ID);
