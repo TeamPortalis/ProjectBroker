@@ -149,6 +149,7 @@
     <Content Include="Models\DBModel\DBModel.edmx.diagram">
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\VM.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Models\DBModel\DBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

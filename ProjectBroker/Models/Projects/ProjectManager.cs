@@ -28,8 +28,8 @@ namespace ProjectBroker.Models.Projects
 
         public static string GetNextProjectID()
         {
-            var teamId = DBManager.db.pr_project.ToList().Select<pr_project, string>(x => x.pr_id.Substring(2)).Max(x => int.Parse(x));
-            return "PID" + teamId;   
+            var teamId = DBManager.db.pr_project.ToList().Select<pr_project, string>(x => x.pr_id.Substring(3)).Max(x => int.Parse(x));
+            return "PID" + (teamId+1);   
         }
 
         public static pr_project DeleteProject(string P_ID)
