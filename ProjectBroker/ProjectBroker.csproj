@@ -135,6 +135,7 @@
     <Content Include="Content\metro.css" />
     <Content Include="Content\metro.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\default_profile_3_400x400.png" />
     <Content Include="Fonts\metro.svg" />
     <Content Include="Global.asax" />
     <Content Include="Fonts\selection.json" />
@@ -163,6 +164,7 @@
     </Content>
     <Content Include="Models\DBModel\FillDBWithTestData.sql" />
     <Content Include="Models\DBModel\proj_broker_database_create_v2.sql" />
+    <Content Include="Content\project_default_400x400.jpg" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
